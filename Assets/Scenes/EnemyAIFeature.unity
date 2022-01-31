@@ -3265,6 +3265,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1863882434}
     - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: attackSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
       propertyPath: patrolPath
       value: 
       objectReference: {fileID: 0}
@@ -3273,12 +3277,36 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: attackRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: attackCDBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
       propertyPath: sightRangeBase
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
       propertyPath: looseSightRange
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: attackRecoverBase
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: attackStartupBase
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: attackDurationBase
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 7008807511937836255, guid: d04ccac60eef18e43b33c3f83cdb234d, type: 3}
       propertyPath: waypointLayer.m_Bits

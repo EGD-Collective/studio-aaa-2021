@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAITest : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
-    NavMeshAgent navMeshAgent;
-    public GameObject player;
-    public LayerMask groundLayer, playerLayer, waypointLayer;
+    private NavMeshAgent navMeshAgent;
+    [SerializeField]
+    private GameObject player;
+    [SerializeField]
+    private LayerMask groundLayer, playerLayer, waypointLayer;
 
     //Patrol pathing
-    public Transform patrolPath;
-    int patrolIndex = 0;
+    [SerializeField]
+    private Transform patrolPath;
+    private int patrolIndex = 0;
 
     //State Machine
     enum BasicEnemyAIStates
@@ -28,27 +31,40 @@ public class EnemyAITest : MonoBehaviour
         RECOVERY
     }
 
-    BasicEnemyAIStates currentAIState;
-    BasicEnemyAttackStates currentAttackState;
-    
-    //Attack
-    public float attackCDBase;
-    float attackCD;
-    public float attackStartupBase;
-    float attackStartup;
-    public float attackRecoverBase;
-    float attackRecover;
-    public float attackDurationBase;
-    float attackDuration;
+    private BasicEnemyAIStates currentAIState;
+    private BasicEnemyAttackStates currentAttackState;
 
-    public float attackRange;
-    public float attackSize;
+    //Attack
+    [SerializeField]
+    private float attackCDBase;
+    private float attackCD;
+    [SerializeField]
+    private float attackStartupBase;
+    private float attackStartup;
+    [SerializeField]
+    private float attackRecoverBase;
+    private float attackRecover;
+    [SerializeField]
+    private float attackDurationBase;
+    private float attackDuration;
+
+    [SerializeField]
+    private float attackRange;
+    [SerializeField]
+    private float attackSize;
 
     //Seeing Variables
-    public float sightRangeBase;
-    float sightRange;
-    Transform lastSeen;
+    [SerializeField]
+    private float sightRangeBase;
+    private float sightRange;
+    Vector3 lastSeen;
 
+    //Collision checks
+    private bool playerInSightRange;
+    private bool terrainInRange;
+    private bool playerInRange;
+    private bool hitPlayer;
+    private Vector3 toPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -66,12 +82,21 @@ public class EnemyAITest : MonoBehaviour
         attackRecover = attackRecoverBase;
     }
 
+    private void FixedUpdate()
+    {
+        //Checks
+        playerInSightRange = Physics.Raycast(transform.position, toPlayer, sightRange, playerLayer);
+        terrainInRange = Physics.Raycast(transform.position, toPlayer, sightRange, groundLayer);
+        playerInRange = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize / 4, playerLayer);
+        hitPlayer = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize, playerLayer);
+    }
+
     // Update is called once per frame
     void Update()
     {
         //Calculating sight range
-        Vector3 toPlayer = player.transform.position - transform.position;
-        if (toPlayer.magnitude < sightRange) 
+        toPlayer = player.transform.position - transform.position;
+        if (toPlayer.magnitude < sightRange)
         {
             sightRange = toPlayer.magnitude;
         }
@@ -79,11 +104,6 @@ public class EnemyAITest : MonoBehaviour
         {
             sightRange = sightRangeBase;
         }
-        //bool playerInRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
-        bool playerInSightRange = Physics.Raycast(transform.position, toPlayer, sightRange, playerLayer);
-        bool terrainInRange = Physics.Raycast(transform.position, toPlayer, sightRange, groundLayer);
-        bool playerInRange = Physics.CheckSphere(transform.position + transform.forward.normalized * attackRange, attackSize / 4, playerLayer);
-        bool hitPlayer = Physics.CheckSphere(transform.position + transform.forward.normalized * attackRange, attackSize, playerLayer);
 
         //Recuding attack cooldown
         attackCD -= Time.deltaTime;
@@ -95,9 +115,8 @@ public class EnemyAITest : MonoBehaviour
                 if(playerInSightRange && !terrainInRange)
                 {
                     currentAIState = BasicEnemyAIStates.CHASE;
-                    lastSeen = player.transform;
-                    navMeshAgent.SetDestination(lastSeen.position);
-                    Debug.Log("Chasing");
+                    lastSeen = player.transform.position;
+                    navMeshAgent.SetDestination(lastSeen);
                 }
                 break;
             case BasicEnemyAIStates.CHASE:
@@ -109,15 +128,12 @@ public class EnemyAITest : MonoBehaviour
                         if (navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete)
                         {
                             currentAIState = BasicEnemyAIStates.IDLE;
-                            lastSeen = null;
-                            Debug.Log("Idling");
                         }
                     }
                     else
                     {
                         //AI Setting and remembering last seen
-                        lastSeen = player.transform;
-                        navMeshAgent.SetDestination(lastSeen.position);
+                        lastSeen = player.transform.position;
                     }
                 }
                 else
@@ -126,18 +142,14 @@ public class EnemyAITest : MonoBehaviour
                     if (navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete)
                     {
                         currentAIState = BasicEnemyAIStates.IDLE;
-                        lastSeen = null;
-                        Debug.Log("Idling");
                     }
                 }
-                //Debug.Log(toPlayer.magnitude + " : " + attackRange);
                 
                 //Attacking if in range
                 if (playerInRange)
                 {
                     currentAIState = BasicEnemyAIStates.ATTACK;
                     navMeshAgent.SetDestination(transform.position);
-                    Debug.Log("Attack");
                 }
                 break;
             case BasicEnemyAIStates.ATTACK:
@@ -150,9 +162,8 @@ public class EnemyAITest : MonoBehaviour
                         if(!playerInRange)
                         {
                             currentAIState = BasicEnemyAIStates.CHASE;
-                            lastSeen = player.transform;
-                            navMeshAgent.SetDestination(lastSeen.position);
-                            Debug.Log("Chasing");
+                            lastSeen = player.transform.position;
+                            navMeshAgent.SetDestination(lastSeen);
                         }
 
                         if(attackCD < 0f)
@@ -194,7 +205,7 @@ public class EnemyAITest : MonoBehaviour
         }
 
 
-        //Old AI, need to use waypoint stuff
+        //Old AI, need to use waypoint/patroling stuff
 
         //if (playerInRange && !terrainInRange)
         //{
@@ -236,7 +247,9 @@ public class EnemyAITest : MonoBehaviour
         Gizmos.DrawRay(new Ray(transform.position, (player.transform.position - transform.position)));
         Gizmos.color = Color.grey;
         Gizmos.DrawWireSphere(transform.position, sightRangeBase);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(lastSeen, 1f);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + transform.forward.normalized * attackRange, attackSize);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange, attackSize);
     }
 }
