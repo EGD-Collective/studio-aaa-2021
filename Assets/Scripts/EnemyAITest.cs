@@ -44,10 +44,9 @@ public class EnemyAITest : MonoBehaviour
     public float attackRange;
     public float attackSize;
 
-    //
+    //Seeing Variables
     public float sightRangeBase;
     float sightRange;
-    public float looseSightRange;
     Transform lastSeen;
 
 
@@ -82,9 +81,9 @@ public class EnemyAITest : MonoBehaviour
         }
         //bool playerInRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
         bool playerInSightRange = Physics.Raycast(transform.position, toPlayer, sightRange, playerLayer);
-        //bool playerInLooseSightRange = Physics.Raycast(transform.position, player.transform.position - transform.position, looseSightRange, playerLayer);
         bool terrainInRange = Physics.Raycast(transform.position, toPlayer, sightRange, groundLayer);
-        //bool terrainInLooseRange = Physics.Raycast(transform.position, player.transform.position - transform.position, looseSightRange, groundLayer);
+        bool playerInRange = Physics.CheckSphere(transform.position + transform.forward.normalized * attackRange, attackSize / 4, playerLayer);
+        bool hitPlayer = Physics.CheckSphere(transform.position + transform.forward.normalized * attackRange, attackSize, playerLayer);
 
         //Recuding attack cooldown
         attackCD -= Time.deltaTime;
@@ -106,6 +105,7 @@ public class EnemyAITest : MonoBehaviour
                 {
                     if (terrainInRange)
                     {
+                        //Travelling to last seen location
                         if (navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete)
                         {
                             currentAIState = BasicEnemyAIStates.IDLE;
@@ -115,13 +115,14 @@ public class EnemyAITest : MonoBehaviour
                     }
                     else
                     {
-                        //AI Memory
+                        //AI Setting and remembering last seen
                         lastSeen = player.transform;
                         navMeshAgent.SetDestination(lastSeen.position);
                     }
                 }
                 else
                 {
+                    //Traveling to last seen location
                     if (navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete)
                     {
                         currentAIState = BasicEnemyAIStates.IDLE;
@@ -129,8 +130,10 @@ public class EnemyAITest : MonoBehaviour
                         Debug.Log("Idling");
                     }
                 }
-                Debug.Log(toPlayer.magnitude + " : " + attackRange);
-                if(toPlayer.magnitude < attackRange + attackSize)
+                //Debug.Log(toPlayer.magnitude + " : " + attackRange);
+                
+                //Attacking if in range
+                if (playerInRange)
                 {
                     currentAIState = BasicEnemyAIStates.ATTACK;
                     navMeshAgent.SetDestination(transform.position);
@@ -138,11 +141,13 @@ public class EnemyAITest : MonoBehaviour
                 }
                 break;
             case BasicEnemyAIStates.ATTACK:
-
+                //Statemachine for attack cycle
                 switch (currentAttackState)
                 {
                     case BasicEnemyAttackStates.COOLDOWN:
-                        if(toPlayer.magnitude > attackRange + attackSize)
+
+                        //Chaning state to chasing when out of range
+                        if(!playerInRange)
                         {
                             currentAIState = BasicEnemyAIStates.CHASE;
                             lastSeen = player.transform;
@@ -168,10 +173,9 @@ public class EnemyAITest : MonoBehaviour
                         attackDuration -= Time.deltaTime;
                         if (attackDuration < 0f)
                         {
-                            bool hitPlayer = Physics.CheckSphere(transform.position + transform.forward.normalized * attackRange, attackSize, playerLayer);
                             if (hitPlayer)
                             {
-                                Debug.Log("HIT!");
+                                Debug.Log("HIT!"); //Do something when hitting player
                             }
                             currentAttackState = BasicEnemyAttackStates.RECOVERY;
                             attackDuration = attackDurationBase;
@@ -190,7 +194,7 @@ public class EnemyAITest : MonoBehaviour
         }
 
 
-        //Old AI need to use waypoint stuff
+        //Old AI, need to use waypoint stuff
 
         //if (playerInRange && !terrainInRange)
         //{
