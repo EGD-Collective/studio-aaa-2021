@@ -57,7 +57,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float sightRangeBase;
     private float sightRange;
-    Vector3 lastSeen;
+    private Vector3 lastSeen;
 
     //Collision checks
     private bool playerInSightRange;
