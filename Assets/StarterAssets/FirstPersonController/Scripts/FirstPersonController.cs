@@ -69,6 +69,8 @@ namespace StarterAssets
 
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
+		private PlayerControllerInput inputActions;
+		private Vector2 desiredRotation;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
@@ -84,6 +86,9 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			inputActions = new PlayerControllerInput();
+			inputActions.Enable();
+			//inputActions.Player.Look.performed += ctx => desiredRotation = ctx.ReadValue<Vector2>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
@@ -113,11 +118,13 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
+			desiredRotation = inputActions.Player.Look.ReadValue<Vector2>();
+			Debug.Log(desiredRotation);
 			// if there is an input
-			if (_input.look.sqrMagnitude >= _threshold)
+			if (desiredRotation.sqrMagnitude >= _threshold)
 			{
-				_cinemachineTargetPitch += _input.look.y * RotationSpeed * Time.deltaTime;
-				_rotationVelocity = _input.look.x * RotationSpeed * Time.deltaTime;
+				_cinemachineTargetPitch += desiredRotation.y * RotationSpeed * Time.deltaTime;
+				_rotationVelocity = desiredRotation.x * RotationSpeed * Time.deltaTime;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
