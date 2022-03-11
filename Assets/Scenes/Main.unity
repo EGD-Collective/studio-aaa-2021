@@ -589,6 +589,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   Activated: 0
+  SetActiveOnStageStart: 0
 --- !u!1 &1099794173
 GameObject:
   m_ObjectHideFlags: 0
@@ -5505,7 +5506,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.5138282, y: 1}
+    m_SensorSize: {x: 0.6117851, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5700,8 +5701,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4905090035785514813, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
 --- !u!4 &4135013736935803456 stripped
 Transform:
