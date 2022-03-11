@@ -26,6 +26,7 @@ namespace Assets.Scripts
     {
         public UnityEvent OnStageStart;
         public UnityEvent OnStageEnd;
+        [SerializeField]
         private BaseClue[] clues;
         private int progress;
         private bool complete = false;
