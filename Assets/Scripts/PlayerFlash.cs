@@ -9,6 +9,9 @@ public class PlayerFlash : MonoBehaviour
     private GameObject enemyObject;
     [SerializeField]
     private LayerMask groundLayer, enemyLayer;
+    [SerializeField]
+    private Light flashPointLight;
+    private Animator flashAnimator;
 
     //View Variables
     private bool obstructed;
@@ -23,7 +26,7 @@ public class PlayerFlash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        flashAnimator = flashPointLight.GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -42,6 +45,7 @@ public class PlayerFlash : MonoBehaviour
 
         if (leftClick && InSight(enemyToCam, obstructed) && hitEnemy)
         {
+            flashAnimator.Play("New Animation", -1, 0);
             Debug.Log("FLASHED");
         }
     }
