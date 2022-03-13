@@ -21,7 +21,8 @@ public class PlayerFlash : MonoBehaviour
     //Flash Variables
     [SerializeField]
     private float flashRange;
-
+    [SerializeField]
+    private float stunDuration;
 
     // Start is called before the first frame update
     void Start()
@@ -43,10 +44,14 @@ public class PlayerFlash : MonoBehaviour
 
         bool leftClick = Input.GetMouseButtonDown(0);
 
-        if (leftClick && InSight(enemyToCam, obstructed) && hitEnemy)
+        if (leftClick)
         {
-            flashAnimator.Play("New Animation", -1, 0);
-            Debug.Log("FLASHED");
+            flashAnimator.Play("FlashPointLight", -1, 0);
+            if (InSight(enemyToCam, obstructed) && hitEnemy)
+            {
+                enemyObject.GetComponent<EnemyAI>().Stun(stunDuration);
+                Debug.Log("Stunned");
+            }
         }
     }
 
