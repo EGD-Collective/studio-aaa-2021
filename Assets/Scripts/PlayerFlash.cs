@@ -47,12 +47,9 @@ public class PlayerFlash : MonoBehaviour
         if (leftClick)
         {
             flashAnimator.Play("FlashPointLight", -1, 0);
-            Debug.Log("Sight: " + InSight(enemyToCam, obstructed));
-            Debug.Log("Sight: " + hitEnemy);
             if (InSight(enemyToCam, obstructed) && hitEnemy)
             {
                 enemyObject.GetComponent<EnemyAI>().Stun(stunDuration);
-                Debug.Log("Stunned");
             }
         }
     }

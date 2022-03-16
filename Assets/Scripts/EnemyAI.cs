@@ -48,9 +48,13 @@ public class EnemyAI : MonoBehaviour
         SEARCHPOINT
     }
 
+    [SerializeField]
     private BasicEnemyAIStates currentAIState;
+    [SerializeField]
     private BasicEnemyAttackStates currentAttackState;
+    [SerializeField]
     private BasicEnemyIdleStates currentIdleState;
+    [SerializeField]
     private BasicEnemySearchStates currentSearchState;
 
     //Attack
@@ -101,10 +105,18 @@ public class EnemyAI : MonoBehaviour
     private float stunnedDur = 0f;
     private float savedSpd;
 
+    //Stun Weakpoints
+    [SerializeField]
+    public float weakPointSize;
+    [SerializeField]
+    public float focusDownDurBase;
+    private WeakPoint[] weakPoints;
+    private bool damaged = true;
+
     //Speed variables
     [SerializeField]
     private float spd = 2f;
-    private float chaseMulti = 1.25f;
+    private float chaseMulti = 1.75f;
 
     //Animation MAYBE TEMPORARY
     private Animator animator;
@@ -120,6 +132,9 @@ public class EnemyAI : MonoBehaviour
         {
             animator = new Animator();
         }
+
+        //Weakpoints
+        weakPoints = GetComponentsInChildren<WeakPoint>();
 
         //Initalization
         currentAIState = BasicEnemyAIStates.IDLE;
@@ -149,7 +164,7 @@ public class EnemyAI : MonoBehaviour
         {
             playerInSightRange = (seePlayer.distance < sightRange && seePlayer.transform.gameObject.name == player.transform.GetChild(1).name);
         }
-        playerInRange = Physics.Raycast(transform.position, toPlayer, attackRange, playerLayer);
+        playerInRange = Physics.Raycast(transform.position, toPlayer, attackRange + attackSize/2, playerLayer);
         hitPlayer = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize, playerLayer);
     }
 
@@ -167,9 +182,7 @@ public class EnemyAI : MonoBehaviour
             stunnedDur -= Time.deltaTime;
             if(stunnedDur <= 0)
             {
-                navMeshAgent.speed = savedSpd;
-                stunned = false;
-                if (savedSpd > spd)
+                if (savedSpd > spd && animator != null)
                 {
                     animator.SetTrigger("ToRun");
                 }
@@ -177,6 +190,16 @@ public class EnemyAI : MonoBehaviour
                 {
                     animator.SetTrigger("ToIdle");
                 }
+                SetWeakpointsActive(false);
+                navMeshAgent.speed = savedSpd;
+                stunned = false;
+            }
+
+            //Hitting weakpoints
+            if (!AllWeakpointsActive() && damaged == false)
+            {
+                Debug.Log("DAMAGED D:");
+                damaged = true;
             }
         }
 
@@ -206,7 +229,7 @@ public class EnemyAI : MonoBehaviour
                             }
                             break;
                         case BasicEnemyIdleStates.WAYPOINT:
-                            Collider[] waypointContacts = Physics.OverlapSphere(transform.position, 0.5f, waypointLayer);
+                            Collider[] waypointContacts = Physics.OverlapSphere(transform.position, 1f, waypointLayer);
 
                             for (int i = 0; i < waypointContacts.Length; i++)
                             {
@@ -222,6 +245,8 @@ public class EnemyAI : MonoBehaviour
                                     //Changing states
                                     currentIdleState = BasicEnemyIdleStates.STILL;
                                     animator.SetTrigger("ToIdle");
+
+                                    break;
                                 }
                             }
                             break;
@@ -230,19 +255,8 @@ public class EnemyAI : MonoBehaviour
                     //Player in range chase
                     if (playerInSightRange)
                     {
-                        currentIdleState = BasicEnemyIdleStates.STILL;
-                        currentAIState = BasicEnemyAIStates.CHASE;
-
-                        //Resetting current state
-                        idleWait = idleWaitBase;
-
-                        //Setting up next state
-                        lastSeen = player.transform.position;
-                        navMeshAgent.speed = spd * chaseMulti;
-                        navMeshAgent.SetDestination(lastSeen);
-
-                        animator.SetTrigger("ToRun");
-                        animator.speed = chaseMulti;
+                        ExitIdle();
+                        EnterChase();
                     }
                     break;
                 case BasicEnemyAIStates.CHASE:
@@ -311,17 +325,11 @@ public class EnemyAI : MonoBehaviour
                             //If there are no valid search points return to idle
                             if (!positiveFound && !negativeFound)
                             {
-                                currentAIState = BasicEnemyAIStates.IDLE;
-                                animator.SetTrigger("ToIdle");
-                                animator.speed = 1;
-                                navMeshAgent.speed = spd;
+                                EnterIdle();
                             }
                             else
                             {
-                                currentAIState = BasicEnemyAIStates.SEARCH;
-                                animator.SetTrigger("ToRun");
-                                animator.speed = 1;
-                                navMeshAgent.speed = spd;
+                                EnterSearch();
                             }
                         }
                     }
@@ -329,11 +337,7 @@ public class EnemyAI : MonoBehaviour
                     //Attacking if in range
                     if (playerInRange)
                     {
-                        currentAIState = BasicEnemyAIStates.ATTACK;
-                        navMeshAgent.SetDestination(transform.position);
-                        navMeshAgent.updateRotation = false;
-                        animator.SetTrigger("ToIdle");
-                        animator.speed = 1;
+                        EnterAttack();
                     }
                     break;
                 case BasicEnemyAIStates.SEARCH:
@@ -341,12 +345,8 @@ public class EnemyAI : MonoBehaviour
                     //Returning to chase when in range
                     if (playerInSightRange)
                     {
-                        lookingDur = lookingDurBase;
-                        searchPointIndex = -1;
-                        navMeshAgent.speed = spd * chaseMulti;
-                        currentAIState = BasicEnemyAIStates.CHASE;
-                        animator.SetTrigger("ToRun");
-                        animator.speed = chaseMulti;
+                        ExitSearch();
+                        EnterChase();
                     }
                     switch (currentSearchState)
                     {
@@ -373,8 +373,8 @@ public class EnemyAI : MonoBehaviour
                                 //End of search points
                                 if (searchPointIndex > searchPoints.Count - 1)
                                 {
-                                    searchPointIndex = -1;
-                                    currentAIState = BasicEnemyAIStates.IDLE;
+                                    ExitSearch();
+                                    EnterIdle();
                                 }
                                 else // Next search point
                                 {
@@ -405,12 +405,8 @@ public class EnemyAI : MonoBehaviour
                             //Chaning state to chasing when out of range
                             if (!playerInRange)
                             {
-                                currentAIState = BasicEnemyAIStates.CHASE;
-                                animator.SetTrigger("ToAttack");
-                                animator.speed = chaseMulti;
-                                lastSeen = player.transform.position;
-                                navMeshAgent.SetDestination(lastSeen);
-                                navMeshAgent.updateRotation = true;
+                                ExitAttack();
+                                EnterChase();
                             }
 
                             if (!hitPlayer)
@@ -469,6 +465,99 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //State machine Transitions
+    private void EnterIdle()
+    {
+        //State and navigation
+        currentAIState = BasicEnemyAIStates.IDLE;
+        navMeshAgent.speed = spd;
+        
+        //Animation
+        animator.SetTrigger("ToIdle");
+        animator.speed = 1;
+    }
+    private void ExitIdle()
+    {
+        //Resetting current state
+        currentIdleState = BasicEnemyIdleStates.STILL;
+        idleWait = idleWaitBase;
+    }
+    private void EnterChase()
+    {
+        //Setting up next state
+        currentAIState = BasicEnemyAIStates.CHASE;
+
+        //Navigation
+        lastSeen = player.transform.position;
+        navMeshAgent.SetDestination(lastSeen);
+        navMeshAgent.speed = spd * chaseMulti;
+
+        //Animation
+        animator.SetTrigger("ToRun");
+        animator.speed = chaseMulti;
+    }
+    private void EnterSearch()
+    {
+        //State and navigation
+        currentAIState = BasicEnemyAIStates.SEARCH;
+        navMeshAgent.speed = spd;
+
+        //Animation
+        animator.SetTrigger("ToRun");
+        animator.speed = 1;
+    }
+    private void ExitSearch()
+    {
+        //Exit Variables
+        currentSearchState = BasicEnemySearchStates.LOOK;
+        lookingDur = lookingDurBase;
+        searchPointIndex = -1;
+    }
+    private void EnterAttack()
+    {
+        //State
+        currentAIState = BasicEnemyAIStates.ATTACK;
+        
+        //Navigation
+        navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.updateRotation = false;
+        
+        //Animation
+        animator.SetTrigger("ToIdle");
+        animator.speed = 1;
+    }
+    private void ExitAttack()
+    {
+        //Updating rotation
+        navMeshAgent.updateRotation = true;
+
+        //Resetting attack timers
+        attackStartup = attackStartupBase;
+        attackDuration = attackDurationBase;
+        attackRecover = attackRecoverBase;
+    }
+
+    //Weakpoints
+    private void SetWeakpointsActive(bool condition)
+    {
+        for (int i = 0; i < weakPoints.Length; i++)
+        {
+            weakPoints[i].SetActive(condition);
+        }
+    }
+
+    private bool AllWeakpointsActive()
+    {
+        for (int i = 0; i < weakPoints.Length; i++)
+        {
+            if(!weakPoints[i].active)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    //Stunned
     public void Stun(float duration)
     {
         savedSpd = navMeshAgent.speed;
@@ -476,7 +565,10 @@ public class EnemyAI : MonoBehaviour
         stunnedDur = duration;
         stunned = true;
         animator.SetTrigger("ToIdle");
+        SetWeakpointsActive(true);
+        damaged = false;
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
