@@ -109,7 +109,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     public float weakPointSize;
     [SerializeField]
-    public float focusDownDurBase;
+    public float focusDownDurationBase;
     private WeakPoint[] weakPoints;
     private bool damaged = true;
 
@@ -118,7 +118,7 @@ public class EnemyAI : MonoBehaviour
     private float spd = 2f;
     private float chaseMulti = 1.75f;
 
-    //Animation MAYBE TEMPORARY
+    //Animation
     private Animator animator;
 
     // Start is called before the first frame update
@@ -135,6 +135,7 @@ public class EnemyAI : MonoBehaviour
 
         //Weakpoints
         weakPoints = GetComponentsInChildren<WeakPoint>();
+        SetWeakpointsActive(false);
 
         //Initalization
         currentAIState = BasicEnemyAIStates.IDLE;
@@ -144,6 +145,7 @@ public class EnemyAI : MonoBehaviour
 
         rotationSpd = navMeshAgent.angularSpeed;
         navMeshAgent.speed = spd;
+
         //Setting timers
         idleWait = idleWaitBase;
         lookingDur = lookingDurBase;
@@ -207,10 +209,13 @@ public class EnemyAI : MonoBehaviour
         {
             //Recuding attack cooldown
             attackCD -= Time.deltaTime;
+
             //Statemachine
             switch (currentAIState)
             {
                 case BasicEnemyAIStates.IDLE:
+
+                    //Patroling between points state machine
                     switch (currentIdleState)
                     {
                         case BasicEnemyIdleStates.STILL:
@@ -220,6 +225,7 @@ public class EnemyAI : MonoBehaviour
                             {
                                 if (patrolPath != null)
                                 {
+                                    //Setting new patrol point and start moving
                                     currentIdleState = BasicEnemyIdleStates.WAYPOINT;
                                     currentPoint = patrolPath.GetChild(patrolIndex);
                                     navMeshAgent.SetDestination(currentPoint.position);
@@ -229,13 +235,15 @@ public class EnemyAI : MonoBehaviour
                             }
                             break;
                         case BasicEnemyIdleStates.WAYPOINT:
+
+                            //Colliding with waypoints
                             Collider[] waypointContacts = Physics.OverlapSphere(transform.position, 1f, waypointLayer);
 
                             for (int i = 0; i < waypointContacts.Length; i++)
                             {
                                 if (waypointContacts[i].name == currentPoint.name)
                                 {
-                                    //Setting new patrol index
+                                    //Itterating patrol index
                                     patrolIndex++;
                                     if (patrolIndex > patrolPath.childCount - 1)
                                     {
@@ -269,18 +277,14 @@ public class EnemyAI : MonoBehaviour
                     }
                     else
                     {
-                        //Travelling to last seen location
+                        //Calculating search points
                         if (Vector3.Distance(transform.position, lastSeen) < 0.5f)
                         {
-                            Vector3 lastSeenToPlayer = (player.transform.position - lastSeen).normalized * searchDistance;
                             bool positiveFound = false;
                             bool negativeFound = false;
 
-                            Vector3 checkAngle;
-                            float checkX;
-                            float checkZ;
                             float angleCheck;
-                            NavMeshPath newPath = new NavMeshPath();
+                            Vector3 checkAngle;
 
                             //Finding searchpoints starting from tangent line of toPlayer
                             for (int i = 90; i >= 0; i--)
@@ -289,15 +293,12 @@ public class EnemyAI : MonoBehaviour
 
                                 if (!positiveFound)
                                 {
-                                    //Constructing new angle
-                                    checkX = lastSeenToPlayer.x * Mathf.Cos(angleCheck) - lastSeenToPlayer.z * Mathf.Sin(angleCheck);
-                                    checkZ = lastSeenToPlayer.x * Mathf.Sin(angleCheck) + lastSeenToPlayer.z * Mathf.Cos(angleCheck);
-                                    checkAngle = new Vector3(checkX, lastSeenToPlayer.y, checkZ);
+                                    //New Angle
+                                    checkAngle = RotateAngle(angleCheck);
                                     Debug.DrawRay(lastSeen, checkAngle, Color.green, 15f);
 
-                                    //Checking for valid complete paths
-                                    NavMesh.CalculatePath(transform.position, transform.position + checkAngle, navMeshAgent.areaMask, newPath);
-                                    if (newPath.status == NavMeshPathStatus.PathComplete)
+                                    //Checking for valid path
+                                    if(CheckNewPath(checkAngle))
                                     {
                                         searchPoints.Add(transform.position + checkAngle);
                                         positiveFound = true;
@@ -306,15 +307,12 @@ public class EnemyAI : MonoBehaviour
 
                                 if (!negativeFound)
                                 {
-                                    //Constructing new angle
-                                    checkX = lastSeenToPlayer.x * Mathf.Cos(-angleCheck) - lastSeenToPlayer.z * Mathf.Sin(-angleCheck);
-                                    checkZ = lastSeenToPlayer.x * Mathf.Sin(-angleCheck) + lastSeenToPlayer.z * Mathf.Cos(-angleCheck);
-                                    checkAngle = new Vector3(checkX, lastSeenToPlayer.y, checkZ);
+                                    //New Angle
+                                    checkAngle = RotateAngle(-angleCheck);
                                     Debug.DrawRay(lastSeen, checkAngle, Color.red, 15f);
 
-                                    //Checking for valid complete paths
-                                    NavMesh.CalculatePath(transform.position, transform.position + checkAngle, navMeshAgent.areaMask, newPath);
-                                    if (newPath.status == NavMeshPathStatus.PathComplete)
+                                    //Checking for valid path
+                                    if (CheckNewPath(checkAngle))
                                     {
                                         searchPoints.Add(transform.position + checkAngle);
                                         negativeFound = true;
@@ -348,6 +346,8 @@ public class EnemyAI : MonoBehaviour
                         ExitSearch();
                         EnterChase();
                     }
+
+                    //Search points state machine
                     switch (currentSearchState)
                     {
                         case BasicEnemySearchStates.LOOK:
@@ -511,6 +511,7 @@ public class EnemyAI : MonoBehaviour
         //Exit Variables
         currentSearchState = BasicEnemySearchStates.LOOK;
         lookingDur = lookingDurBase;
+        searchPoints.Clear();
         searchPointIndex = -1;
     }
     private void EnterAttack()
@@ -537,20 +538,45 @@ public class EnemyAI : MonoBehaviour
         attackRecover = attackRecoverBase;
     }
 
+    //Rotation
+    private Vector3 RotateAngle(float angleCheck)
+    {
+        Vector3 lastSeenToPlayer = (player.transform.position - lastSeen).normalized * searchDistance;
+        float checkX;
+        float checkZ;
+
+        //Matrix rotation
+        checkX = lastSeenToPlayer.x * Mathf.Cos(angleCheck) - lastSeenToPlayer.z * Mathf.Sin(angleCheck);
+        checkZ = lastSeenToPlayer.x * Mathf.Sin(angleCheck) + lastSeenToPlayer.z * Mathf.Cos(angleCheck);
+        return new Vector3(checkX, lastSeenToPlayer.y, checkZ);
+    }
+
+    //Checking New Path
+    private bool CheckNewPath(Vector3 checkAngle)
+    {
+        NavMeshPath newPath = new NavMeshPath();
+        //Checking for valid complete paths
+        NavMesh.CalculatePath(transform.position, transform.position + checkAngle, navMeshAgent.areaMask, newPath);
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            return true;
+        }
+        return false;
+    }
+
     //Weakpoints
     private void SetWeakpointsActive(bool condition)
     {
         for (int i = 0; i < weakPoints.Length; i++)
         {
-            weakPoints[i].SetActive(condition);
+            weakPoints[i].gameObject.SetActive(condition);
         }
     }
-
     private bool AllWeakpointsActive()
     {
         for (int i = 0; i < weakPoints.Length; i++)
         {
-            if(!weakPoints[i].active)
+            if(!weakPoints[i].gameObject.activeSelf)
             {
                 return false;
             }

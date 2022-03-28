@@ -4,50 +4,24 @@ using UnityEngine;
 
 public class WeakPoint : MonoBehaviour
 {
-    public SphereCollider sphereCollider;
-    public float focusDownDur;
-    public float size;
-
-    private ParticleSystem particleSystem;
-
-    public bool active = false;
+    private SphereCollider sphereCollider;
+    private float focusDownDuration;
     // Start is called before the first frame update
     void Start()
     {
         EnemyAI enemyAI = GetComponentInParent<EnemyAI>();
-        particleSystem = GetComponent<ParticleSystem>();
-        
-        sphereCollider = gameObject.AddComponent(typeof(SphereCollider)) as SphereCollider;
-        sphereCollider.isTrigger = true;
+        sphereCollider = GetComponent<SphereCollider>();
+
         sphereCollider.radius = enemyAI.weakPointSize;
-        focusDownDur = enemyAI.focusDownDurBase;
-        particleSystem.Stop();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    public void SetActive(bool condition)
-    {
-        active = condition;
-        if(condition)
-        {
-            particleSystem.Play();
-        }
-        else
-        {
-            particleSystem.Stop();
-        }
+        focusDownDuration = enemyAI.focusDownDurationBase;
     }
 
     public void Hit()
     {
-        focusDownDur -= Time.fixedDeltaTime;
-        if(focusDownDur <= 0 && active == true)
+        focusDownDuration -= Time.fixedDeltaTime;
+        if(focusDownDuration <= 0)
         {
-            SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

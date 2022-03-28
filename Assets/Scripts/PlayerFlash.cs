@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerFlash : MonoBehaviour
 {
-    [SerializeField]
-    private Camera playerView;
-    [SerializeField]
-    private GameObject enemyObject;
+    //Layers
     [SerializeField]
     private LayerMask groundLayer, enemyLayer;
+
+    //Light
     [SerializeField]
     private Light flashPointLight;
     private Animator flashAnimator;
-
-    //View Variables
-    private bool obstructed;
-    private bool hitEnemy;
-    private Vector3 toEnemy;
 
     //Flash Variables
     [SerializeField]
@@ -30,43 +24,38 @@ public class PlayerFlash : MonoBehaviour
         flashAnimator = flashPointLight.GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    public void OnFlash()
     {
-        obstructed = Physics.Raycast(transform.position, toEnemy, toEnemy.magnitude, groundLayer);
-        hitEnemy = Physics.Raycast(transform.position, toEnemy, flashRange, enemyLayer);
-    }
+        //Flash Animation
+        flashAnimator.SetTrigger("ToFlash");
 
-    // Update is called once per frame
-    void Update()
-    {
-        toEnemy = enemyObject.transform.position - transform.position;
-        Vector3 enemyToCam = playerView.WorldToViewportPoint(enemyObject.transform.position);
-
-        bool leftClick = Input.GetMouseButtonDown(0);
-
-        if (leftClick)
+        //Checking for enemy
+        RaycastHit[] enemyHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange);
+        EnemyAI enemyAI = null;
+        for (int i = 0; i < enemyHit.Length; i++)
         {
-            flashAnimator.Play("FlashPointLight", -1, 0);
-            if (InSight(enemyToCam, obstructed) && hitEnemy)
+            enemyHit[i].transform.TryGetComponent<EnemyAI>(out enemyAI);
+
+            //Checking for hitting enemy
+            if (enemyAI != null)
             {
-                enemyObject.GetComponent<EnemyAI>().Stun(stunDuration);
+                Vector3 toEnemy = enemyAI.transform.position - transform.position;
+
+                //If its not obstructed
+                if (!Physics.Raycast(transform.position, toEnemy, toEnemy.magnitude, groundLayer))
+                {
+                    enemyAI.Stun(stunDuration);
+                }
+
+                break;
             }
         }
+
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, flashRange);
-    }
-
-    private bool InSight(Vector3 viewPortPoint, bool obstructed)
-    {
-        return viewPortPoint.x > 0 &&
-            viewPortPoint.x < 1 &&
-            viewPortPoint.y > 0 &&
-            viewPortPoint.y < 1 &&
-            viewPortPoint.z > 0 &&
-            !obstructed;
     }
 }

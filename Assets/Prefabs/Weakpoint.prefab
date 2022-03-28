@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1637126197594832606}
   - component: {fileID: 4515954950965890528}
   - component: {fileID: 2809870860142093927}
+  - component: {fileID: -5032654387449590771}
   m_Layer: 0
   m_Name: Weakpoint
   m_TagString: Untagged
@@ -46,10 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493cd76f27ed1e04fa3ade341323a254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 0}
-  focusDownDur: 0
-  size: 0
-  active: 0
 --- !u!198 &4515954950965890528
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4829,3 +4826,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!135 &-5032654387449590771
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190535732697533400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
