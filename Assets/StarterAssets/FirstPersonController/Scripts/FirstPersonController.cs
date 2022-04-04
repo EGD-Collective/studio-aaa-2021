@@ -69,7 +69,6 @@ namespace StarterAssets
 
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
-		private PlayerControllerInput inputActions;
 		private Vector2 desiredRotation;
 		private GameObject _mainCamera;
 
@@ -86,8 +85,6 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			inputActions = new PlayerControllerInput();
-			inputActions.Enable();
 			//inputActions.Player.Look.performed += ctx => desiredRotation = ctx.ReadValue<Vector2>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -118,8 +115,7 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
-			desiredRotation = inputActions.Player.Look.ReadValue<Vector2>();
-			Debug.Log(desiredRotation);
+			desiredRotation = _input.look;
 			// if there is an input
 			if (desiredRotation.sqrMagnitude >= _threshold)
 			{
