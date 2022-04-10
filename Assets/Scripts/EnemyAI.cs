@@ -168,15 +168,12 @@ public class EnemyAI : MonoBehaviour
         toPlayer = player.transform.position - transform.position;
 
         //checking if player is within sight range
-        Ray lookForPlayer = new Ray(transform.position + Vector3.up*0.25f, toPlayer); //added Vector3.up the origin of ray for better collisions
-        if (Physics.Raycast(lookForPlayer, out RaycastHit hit, terrainPlayerLayer))
-        {
-            playerInSightRange = (hit.distance < sightRange && hit.transform.gameObject.name == player.transform.GetChild(1).name);
-        }
+        playerInSightRange = Physics.Raycast(transform.position + Vector3.up * 0.25f, toPlayer, out RaycastHit hit, sightRange, terrainPlayerLayer) 
+            && hit.transform.gameObject.CompareTag("Player");
 
-        //if player is within reasonable attack range
-        playerInRange = Physics.Raycast(transform.position, toPlayer, attackRange + attackSize/2, playerLayer);
-
+        //if player is within attack range
+        playerInRange = Physics.Raycast(transform.position + Vector3.up * 0.25f, toPlayer, attackRange + attackSize/2, playerLayer);
+        Debug.DrawRay(transform.position + Vector3.up * 0.25f, toPlayer);
         //if player is within attack hitbox
         playerInHitbox = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize, playerLayer);
     }
