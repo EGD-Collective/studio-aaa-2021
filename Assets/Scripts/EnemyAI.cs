@@ -52,7 +52,6 @@ public class EnemyAI : MonoBehaviour
     }
 
     private BasicEnemyAIStates currentAIState;
-    [SerializeField]
     private BasicEnemyAttackStates currentAttackState;
     private BasicEnemyIdleStates currentIdleState;
     private BasicEnemySearchStates currentSearchState;
@@ -173,15 +172,12 @@ public class EnemyAI : MonoBehaviour
         toPlayer = player.transform.position - transform.position;
 
         //checking if player is within sight range
-        Ray lookForPlayer = new Ray(transform.position + Vector3.up*0.25f, toPlayer); //added Vector3.up the origin of ray for better collisions
-        if (Physics.Raycast(lookForPlayer, out RaycastHit hit, terrainPlayerLayer))
-        {
-            playerInSightRange = (hit.distance < sightRange && hit.transform.gameObject.name == player.GetComponentInChildren<CapsuleCollider>().transform.name);
-        }
+        playerInSightRange = Physics.Raycast(transform.position + Vector3.up * 0.25f, toPlayer, out RaycastHit hit, sightRange, terrainPlayerLayer) 
+            && hit.transform.gameObject.CompareTag("Player");
 
-        //if player is within reasonable attack range
-        playerInRange = Physics.Raycast(transform.position, toPlayer, attackRange + attackSize/1.5f, playerLayer);
-
+        //if player is within attack range
+        playerInRange = Physics.Raycast(transform.position + Vector3.up * 0.25f, toPlayer, attackRange + attackSize/2, playerLayer);
+        Debug.DrawRay(transform.position + Vector3.up * 0.25f, toPlayer);
         //if player is within attack hitbox
         playerInHitbox = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize, playerLayer);
     }
@@ -504,6 +500,19 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+                //Ending Stun Duration
+                stunnedDur -= Time.deltaTime;
+                if (stunnedDur <= 0 && !damaged)
+                {
+                    ExitStun();
+                }
+
+                break;
+            case BasicEnemyAIStates.DEAD:
+                break;
+        }
+    }
+
     //State machine Transitions
     private void EnterIdle()
     {
@@ -611,6 +620,39 @@ public class EnemyAI : MonoBehaviour
 
         //Animation
         //animator.SetTrigger("ToDie");
+    }
+    private void EnterStun(float duration)
+    {
+        //States
+        ExitAnyState();
+        currentAIState = BasicEnemyAIStates.STUN;
+        navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.speed = 0;
+
+        //Weakpoints
+        SetWeakpointsActive(true);
+
+        //Adjusting Variables
+        stunnedDur = duration;
+        damaged = false;
+
+        //Animation
+        animator.speed = 1;
+        animator.SetTrigger("ToIdle");
+    }
+    private void ExitStun()
+    {
+        EnterIdle();
+        SetWeakpointsActive(false);
+    }
+    private void EnterDead()
+    {
+        //Chaning States
+        ExitAnyState();
+        currentAIState = BasicEnemyAIStates.DEAD;
+
+        //Animation
+        animator.SetTrigger("ToDie");
     }
 
     //Exit States

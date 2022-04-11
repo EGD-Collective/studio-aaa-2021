@@ -24,7 +24,7 @@ public class PlayerFlash : MonoBehaviour
 
     //UI
     [SerializeField]
-    private Image flashCooldownBar;
+    private Slider flashCooldownBar;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,7 @@ public class PlayerFlash : MonoBehaviour
         flashCooldown -= Time.deltaTime;
 
         //UI
-        flashCooldownBar.transform.localScale = new Vector3(1f - Mathf.Max(0f, flashCooldown / flashCooldownBase), 1f, 1f);
+        flashCooldownBar.value = 1f - Mathf.Max(0f, flashCooldown / flashCooldownBase);
     }
 
     public void OnFlash()
@@ -53,14 +53,11 @@ public class PlayerFlash : MonoBehaviour
             flashAnimator.SetTrigger("ToFlash");
 
             //Checking for enemy
-            RaycastHit[] enemyHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange);
-            EnemyAI enemyAI = null;
+            RaycastHit[] enemyHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange, enemyLayer);
             for (int i = 0; i < enemyHit.Length; i++)
             {
-                enemyHit[i].transform.TryGetComponent<EnemyAI>(out enemyAI);
-
                 //Checking for hitting enemy
-                if (enemyAI != null)
+                if (enemyHit[i].transform.TryGetComponent<EnemyAI>(out EnemyAI enemyAI))
                 {
                     Vector3 toEnemy = enemyAI.transform.position - transform.position;
 
