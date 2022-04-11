@@ -500,18 +500,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-                //Ending Stun Duration
-                stunnedDur -= Time.deltaTime;
-                if (stunnedDur <= 0 && !damaged)
-                {
-                    ExitStun();
-                }
-
-                break;
-            case BasicEnemyAIStates.DEAD:
-                break;
-        }
-    }
 
     //State machine Transitions
     private void EnterIdle()
@@ -620,39 +608,6 @@ public class EnemyAI : MonoBehaviour
 
         //Animation
         //animator.SetTrigger("ToDie");
-    }
-    private void EnterStun(float duration)
-    {
-        //States
-        ExitAnyState();
-        currentAIState = BasicEnemyAIStates.STUN;
-        navMeshAgent.SetDestination(transform.position);
-        navMeshAgent.speed = 0;
-
-        //Weakpoints
-        SetWeakpointsActive(true);
-
-        //Adjusting Variables
-        stunnedDur = duration;
-        damaged = false;
-
-        //Animation
-        animator.speed = 1;
-        animator.SetTrigger("ToIdle");
-    }
-    private void ExitStun()
-    {
-        EnterIdle();
-        SetWeakpointsActive(false);
-    }
-    private void EnterDead()
-    {
-        //Chaning States
-        ExitAnyState();
-        currentAIState = BasicEnemyAIStates.DEAD;
-
-        //Animation
-        animator.SetTrigger("ToDie");
     }
 
     //Exit States
