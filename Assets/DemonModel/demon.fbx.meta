@@ -24,6 +24,15 @@ ModelImporter:
   - first:
       74: 279670554674963251
     second: metarig.001|walk
+  - first:
+      74: -4418351572980771110
+    second: metarig.001|stagger_2
+  - first:
+      74: 1434430431242595257
+    second: metarig.001|stagger_3
+  - first:
+      74: -5823623002844394880
+    second: metarig.001|survey
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -67,7 +76,7 @@ ModelImporter:
       name: metarig.001|attack
       takeName: metarig.001|attack
       internalID: 0
-      firstFrame: 6
+      firstFrame: 0
       lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
@@ -154,7 +163,7 @@ ModelImporter:
       name: metarig.001|idle
       takeName: metarig.001|idle
       internalID: 0
-      firstFrame: 6
+      firstFrame: 0
       lastFrame: 138
       wrapMode: 0
       orientationOffsetY: 0
@@ -212,8 +221,8 @@ ModelImporter:
       name: metarig.001|stagger
       takeName: metarig.001|stagger
       internalID: 0
-      firstFrame: 9
-      lastFrame: 78
+      firstFrame: 0
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -241,7 +250,7 @@ ModelImporter:
       name: metarig.001|walk
       takeName: metarig.001|walk
       internalID: 0
-      firstFrame: 2
+      firstFrame: 0
       lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
@@ -250,6 +259,93 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig.001|stagger_2
+      takeName: metarig.001|stagger_2
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig.001|stagger_3
+      takeName: metarig.001|stagger_3
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig.001|survey
+      takeName: metarig.001|survey
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 69
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

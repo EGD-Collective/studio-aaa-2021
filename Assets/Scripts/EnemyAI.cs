@@ -143,18 +143,20 @@ public class EnemyAI : MonoBehaviour
         {
             animator = new Animator();
         }
+
+        rotationSpd = navMeshAgent.angularSpeed;
+        navMeshAgent.speed = spd;
+
         //Weakpoints
         weakPoints = GetComponentsInChildren<WeakPoint>();
         SetWeakpointsActive(false);
 
         //Initalization
-        currentAIState = BasicEnemyAIStates.IDLE;
+        EnterIdle();
         currentAttackState = BasicEnemyAttackStates.COOLDOWN;
         currentIdleState = BasicEnemyIdleStates.STILL;
         currentSearchState = BasicEnemySearchStates.LOOK;
 
-        rotationSpd = navMeshAgent.angularSpeed;
-        navMeshAgent.speed = spd;
 
         //Setting timers
         idleWait = idleWaitBase;
@@ -177,7 +179,7 @@ public class EnemyAI : MonoBehaviour
 
         //if player is within attack range
         playerInRange = Physics.Raycast(transform.position + Vector3.up * 0.25f, toPlayer, attackRange + attackSize/2, playerLayer);
-        Debug.DrawRay(transform.position + Vector3.up * 0.25f, toPlayer);
+        
         //if player is within attack hitbox
         playerInHitbox = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize, playerLayer);
     }
@@ -210,7 +212,8 @@ public class EnemyAI : MonoBehaviour
                                 currentIdleState = BasicEnemyIdleStates.WAYPOINT;
                                 currentPoint = patrolPath.GetChild(patrolIndex);
                                 navMeshAgent.SetDestination(currentPoint.position);
-                                animator.SetTrigger("ToRun");
+                                navMeshAgent.speed = spd;
+                                animator.SetFloat("Speed", navMeshAgent.speed);
                             }
                             idleWait = idleWaitBase;
                         }
@@ -233,7 +236,8 @@ public class EnemyAI : MonoBehaviour
 
                                 //Changing states
                                 currentIdleState = BasicEnemyIdleStates.STILL;
-                                animator.SetTrigger("ToIdle");
+                                navMeshAgent.speed = 0;
+                                animator.SetFloat("Speed", navMeshAgent.speed);
 
                                 break;
                             }
@@ -334,20 +338,8 @@ public class EnemyAI : MonoBehaviour
                     case BasicEnemySearchStates.LOOK:
                         lookingDur -= Time.deltaTime;
 
-                        //Rotating to simulate looking
-                        if (lookingDur > lookingDurBase * (1.0f / 2.0f))
-                        {
-                            Vector3 rotation = new Vector3(0f, -rotationSpd / 2 * Time.deltaTime, 0f);
-                            transform.Rotate(rotation);
-                        }
-                        else
-                        {
-                            Vector3 rotation = new Vector3(0f, rotationSpd / 2 * Time.deltaTime, 0f);
-                            transform.Rotate(rotation);
-                        }
-
                         //Changing based on available search points
-                        if (lookingDur <= 0f)
+                        if (lookingDur <= 0)
                         {
                             searchPointIndex++;
 
@@ -360,6 +352,10 @@ public class EnemyAI : MonoBehaviour
                             else // Next search point
                             {
                                 navMeshAgent.SetDestination(searchPoints[searchPointIndex]);
+                                navMeshAgent.speed = spd;
+
+                                animator.SetFloat("Speed", navMeshAgent.speed);
+
                                 currentSearchState = BasicEnemySearchStates.SEARCHPOINT;
                             }
                             lookingDur = lookingDurBase;
@@ -372,6 +368,12 @@ public class EnemyAI : MonoBehaviour
                         if (Vector3.Distance(transform.position, searchPoints[searchPointIndex]) < 0.5f)
                         {
                             currentSearchState = BasicEnemySearchStates.LOOK;
+
+                            navMeshAgent.SetDestination(transform.position);
+                            navMeshAgent.speed = 0;
+
+                            animator.SetFloat("Speed", navMeshAgent.speed);
+                            animator.SetTrigger("ToSearch");
                         }
 
                         break;
@@ -456,7 +458,6 @@ public class EnemyAI : MonoBehaviour
                             if(currentAttackCycle >= attackCycles.Count)
                             {
                                 currentAttackState = BasicEnemyAttackStates.COOLDOWN;
-                                animator.SetTrigger("ToIdle");
                                 currentAttackCycle = 0;
                             }
                             else
@@ -470,16 +471,6 @@ public class EnemyAI : MonoBehaviour
                 break;
             case BasicEnemyAIStates.STUN:
 
-                //Transition out of stun after animation
-                if (damaged)
-                {
-                    //After taking damage animation
-                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                    {
-                        ExitStun();
-                    }
-                }
-
                 //Hitting weakpoints and taking damage
                 if (AllWeakpointsDisabled() && damaged == false)
                 {
@@ -487,11 +478,25 @@ public class EnemyAI : MonoBehaviour
                     damaged = true;
                 }
 
+                //Transition out of stun after animation
+                if (damaged)
+                {
+                    //After stun recovery animation
+                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                    {
+                        ExitStun();
+                    }
+                }
+
                 //Ending Stun Duration
                 stunnedDur -= Time.deltaTime;
                 if (stunnedDur <= 0 && !damaged)
                 {
-                    ExitStun();
+                    //After stun recovery animation
+                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                    {
+                        ExitStun();
+                    }
                 }
 
                 break;
@@ -506,11 +511,11 @@ public class EnemyAI : MonoBehaviour
     {
         //State and navigation
         currentAIState = BasicEnemyAIStates.IDLE;
-        navMeshAgent.speed = spd;
         navMeshAgent.SetDestination(transform.position);
-        
+        navMeshAgent.speed = 0;
+
         //Animation
-        animator.SetTrigger("ToIdle");
+        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.speed = 1;
     }
     private void ExitIdle()
@@ -529,7 +534,7 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.speed = spd * chaseMulti;
 
         //Animation
-        animator.SetTrigger("ToRun");
+        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.speed = chaseMulti;
     }
     private void EnterSearch()
@@ -537,10 +542,11 @@ public class EnemyAI : MonoBehaviour
         //State and navigation
         currentAIState = BasicEnemyAIStates.SEARCH;
         navMeshAgent.SetDestination(transform.position);
-        navMeshAgent.speed = spd;
+        navMeshAgent.speed = 0;
 
         //Animation
-        animator.SetTrigger("ToRun");
+        animator.SetFloat("Speed", navMeshAgent.speed);
+        animator.SetTrigger("ToSearch");
         animator.speed = 1;
     }
     private void ExitSearch()
@@ -558,10 +564,11 @@ public class EnemyAI : MonoBehaviour
         
         //Navigation
         navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.speed = 0;
         navMeshAgent.updateRotation = false;
-        
+
         //Animation
-        animator.SetTrigger("ToIdle");
+        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.speed = 1;
     }
     private void ExitAttack()
@@ -593,20 +600,25 @@ public class EnemyAI : MonoBehaviour
 
         //Animation
         animator.speed = 1;
+        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.SetTrigger("ToStun");
     }
     private void ExitStun()
     {
         EnterChase();
         SetWeakpointsActive(false);
+        animator.SetTrigger("ToEndStun");
     }
     private void EnterDead()
     {
         //Chaning States
         ExitAnyState();
         currentAIState = BasicEnemyAIStates.DEAD;
+        navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.speed = 0;
 
         //Animation
+        animator.SetFloat("Speed", navMeshAgent.speed);
         //animator.SetTrigger("ToDie");
     }
 
