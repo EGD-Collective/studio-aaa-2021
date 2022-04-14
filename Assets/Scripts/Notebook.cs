@@ -23,7 +23,8 @@ public class Notebook : MonoBehaviour
     {
         input = new PlayerInput().Player;
         input.Enable();
-        input.OpenNotebook.performed += OnOpenNotebook;
+        input.OpenNotebook.performed += _ => OnOpenNotebook();
+        gameObject.SetActive(false);
     }
     public void addEntry(NotebookEntrySO entry)
     {
@@ -33,7 +34,7 @@ public class Notebook : MonoBehaviour
         entries.Add(newEntry);
     }
 
-    public void OnOpenNotebook(InputAction.CallbackContext _)
+    public void OnOpenNotebook()
     {
         gameObject.SetActive(!gameObject.activeInHierarchy);
     }

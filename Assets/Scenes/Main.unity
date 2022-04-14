@@ -1220,7 +1220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000011444092}
+  m_AnchoredPosition: {x: 0, y: -0.000026249543}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &803015117
@@ -1432,16 +1432,16 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
-  m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: -3552364970006637457, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
-  m_SubmitAction: {fileID: 0}
-  m_CancelAction: {fileID: 0}
-  m_LeftClickAction: {fileID: 0}
-  m_MiddleClickAction: {fileID: 0}
-  m_RightClickAction: {fileID: 0}
-  m_ScrollWheelAction: {fileID: 0}
-  m_TrackedDevicePositionAction: {fileID: 0}
-  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_PointAction: {fileID: 6007981182777993090, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_MoveAction: {fileID: 2862040023001078443, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_SubmitAction: {fileID: -2176995857299832393, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_CancelAction: {fileID: -7978943642575647712, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_LeftClickAction: {fileID: 1214161717352489764, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_MiddleClickAction: {fileID: -1285096502720379252, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_RightClickAction: {fileID: 1925211062731154853, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_ScrollWheelAction: {fileID: 1280073566004674390, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 708659090389901437, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: -2881121512541026168, guid: 6056f0d71b805544e8cc878ac738c04f, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
 --- !u!1 &961856421
@@ -7135,7 +7135,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1800974449}
   m_HandleRect: {fileID: 1800974448}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8103,6 +8103,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8745554764331559717, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 449856333}
     - target: {fileID: 8745554764331559717, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: m_UIInputModule
       value: 
