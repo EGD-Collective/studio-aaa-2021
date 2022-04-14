@@ -12,9 +12,6 @@ public class Notebook : MonoBehaviour
     {
         if (instance)
             Destroy(instance.gameObject);
-        input = new PlayerInput.PlayerActions();
-        input.Enable();
-        input.OpenNotebook.performed += OnOpenNotebook;
         instance = this;
     }
 
@@ -22,6 +19,12 @@ public class Notebook : MonoBehaviour
     [SerializeField]
     private NotebookEntry entryPrefab;
 
+    private void Start()
+    {
+        input = new PlayerInput().Player;
+        input.Enable();
+        input.OpenNotebook.performed += OnOpenNotebook;
+    }
     public void addEntry(NotebookEntrySO entry)
     {
         NotebookEntry newEntry = Instantiate(entryPrefab, entryContainer.transform);
