@@ -15,7 +15,8 @@ namespace Assets.Scripts
             if (!Activated)
             {
                 Activated = true;
-                Notebook.instance.addEntry(clueNote);
+                if (clueNote)
+                    Notebook.instance.addEntry(clueNote);
                 OnClueActivated.Invoke();
             }
         }
