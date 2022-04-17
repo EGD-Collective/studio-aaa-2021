@@ -7,7 +7,8 @@ public class Notebook : MonoBehaviour
 {
     public static Notebook instance;
     public GameObject entryContainer;
-    private PlayerInput.PlayerActions input;
+    [SerializeField]
+    private PlayerInput playerInput;
     private void Awake()
     {
         if (instance)
@@ -21,9 +22,7 @@ public class Notebook : MonoBehaviour
 
     private void Start()
     {
-        input = new PlayerInput().Player;
-        input.Enable();
-        input.OpenNotebook.performed += _ => OnOpenNotebook();
+        playerInput.actions.FindAction("OpenNotebook").performed += _ => OnOpenNotebook();
         gameObject.SetActive(false);
     }
     public void addEntry(NotebookEntrySO entry)
@@ -37,5 +36,6 @@ public class Notebook : MonoBehaviour
     public void OnOpenNotebook()
     {
         gameObject.SetActive(!gameObject.activeInHierarchy);
+        Time.timeScale = gameObject.activeInHierarchy ? 0 : 1;
     }
 }
