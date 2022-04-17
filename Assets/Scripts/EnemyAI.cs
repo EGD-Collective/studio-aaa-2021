@@ -134,6 +134,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("test");
         //Getting Components
         health = GetComponent<Health>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -474,19 +475,20 @@ public class EnemyAI : MonoBehaviour
                 //Hitting weakpoints and taking damage
                 if (AllWeakpointsDisabled() && damaged == false)
                 {
+                    Die();
                     health.LoseHealth(playerDamage);
                     damaged = true;
                 }
 
                 //Transition out of stun after animation
-                if (damaged)
-                {
-                    //After stun recovery animation
-                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                    {
-                        ExitStun();
-                    }
-                }
+                //if (damaged)
+                //{
+                //    //After stun recovery animation
+                //    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                //    {
+                //        ExitStun();
+                //    }
+                //}
 
                 //Ending Stun Duration
                 stunnedDur -= Time.deltaTime;
@@ -496,6 +498,7 @@ public class EnemyAI : MonoBehaviour
                     if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
                     {
                         ExitStun();
+                        EnterChase();
                     }
                 }
 
@@ -605,7 +608,6 @@ public class EnemyAI : MonoBehaviour
     }
     private void ExitStun()
     {
-        EnterChase();
         SetWeakpointsActive(false);
         animator.SetTrigger("ToEndStun");
     }
@@ -619,7 +621,6 @@ public class EnemyAI : MonoBehaviour
 
         //Animation
         animator.SetFloat("Speed", navMeshAgent.speed);
-        //animator.SetTrigger("ToDie");
     }
 
     //Exit States
@@ -670,7 +671,10 @@ public class EnemyAI : MonoBehaviour
     {
         for (int i = 0; i < weakPoints.Length; i++)
         {
-            weakPoints[i].gameObject.SetActive(condition);
+            if (weakPoints[i].popped == false)
+            {
+                weakPoints[i].gameObject.SetActive(condition);
+            }
         }
     }
     private bool AllWeakpointsDisabled()
@@ -695,6 +699,8 @@ public class EnemyAI : MonoBehaviour
     //Dying
     public void Die()
     {
+        Debug.Log(gameObject.name + " is dead");
+        ExitAnyState();
         EnterDead();
     }
     //Setting damage taken
