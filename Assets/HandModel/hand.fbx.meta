@@ -1,49 +1,30 @@
 fileFormatVersion: 2
-guid: 407fa9428dbb2dc4aaa9582d6c947c5d
+guid: 5369a07a4f32aa5449525b3568eba1b1
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
-      74: 2205001644816585228
-    second: metarig.001|attack
+      74: 8095181331201448214
+    second: Armature|hand_amulet
   - first:
-      74: 2719365342684236196
-    second: metarig.001|attack_old1
+      74: -7233140167207350124
+    second: Armature|hand_amulet_to_present
   - first:
-      74: 319719200051538780
-    second: metarig.001|attack_old2
+      74: 1416839890256724821
+    second: Armature|hand_clasp
   - first:
-      74: 4396564986115863379
-    second: metarig.001|idle
+      74: 1627835235824336890
+    second: Armature|hand_empty
   - first:
-      74: -1592242179603529956
-    second: metarig.001|PoseLib
+      74: 2845805929111857989
+    second: Armature|hand_present
   - first:
-      74: 7196354776549880108
-    second: metarig.001|stagger
+      74: -1671567668773536094
+    second: Armature|hand_present_to_amulet
   - first:
-      74: 279670554674963251
-    second: metarig.001|walk
-  - first:
-      74: -4418351572980771110
-    second: metarig.001|stagger_2
-  - first:
-      74: 1434430431242595257
-    second: metarig.001|stagger_3
-  - first:
-      74: -5823623002844394880
-    second: metarig.001|survey
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: demon_body
-    second: {fileID: 2100000, guid: 31b93dbdde7b99a47bb04e26b91d45d7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: demon_scales
-    second: {fileID: 2100000, guid: 4c8bc30caab6a7f4f9ca529c835095bd, type: 2}
+      74: 5508062484833401239
+    second: Armature|PoseLib
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -63,7 +44,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 1
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

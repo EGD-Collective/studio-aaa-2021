@@ -8,8 +8,10 @@ namespace Assets.Scripts
     {
         public UnityEvent OnClueActivated;
         public bool Activated;
+        public bool SetActiveOnStageStart;
         [SerializeField]
         private NotebookEntrySO clueNote;
+
         public virtual void Activate()
         {
             if (!Activated)
@@ -20,11 +22,5 @@ namespace Assets.Scripts
                 OnClueActivated.Invoke();
             }
         }
-    }
-    public enum ClueStage
-    {
-        stage_1,
-        stage_2,
-        stage_3
     }
 }

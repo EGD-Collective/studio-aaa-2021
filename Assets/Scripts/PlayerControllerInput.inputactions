@@ -58,7 +58,7 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                }
+                },
                 {
                     "name": "Flash",
                     "type": "Button",
