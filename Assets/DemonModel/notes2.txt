@@ -1,0 +1,7 @@
+frames
+attack		1 - 42
+idle		1 - 32	loop
+stagger 	1 - 15
+stagger_2	1 - 60	previously part of stagger
+survey		1 - 70	previously part of idle
+walk		1 - 26	loop
