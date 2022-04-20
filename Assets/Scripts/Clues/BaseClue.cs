@@ -9,11 +9,16 @@ namespace Assets.Scripts
         public UnityEvent OnClueActivated;
         public bool Activated;
         public bool SetActiveOnStageStart;
+        [SerializeField]
+        private NotebookEntrySO clueNote;
+
         public virtual void Activate()
         {
             if (!Activated)
             {
                 Activated = true;
+                if (clueNote)
+                    Notebook.instance.addEntry(clueNote);
                 OnClueActivated.Invoke();
             }
         }
