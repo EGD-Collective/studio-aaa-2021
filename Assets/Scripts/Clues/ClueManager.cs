@@ -17,7 +17,7 @@ namespace Assets.Scripts
             //Chain stages together
             for (int i = 0; i < stages.Length - 1; i++)
             {
-                stages[0].OnStageEnd.AddListener(stages[i + 1].initialize);
+                stages[i].OnStageEnd.AddListener(stages[i + 1].initialize);
             }
         }
     }
