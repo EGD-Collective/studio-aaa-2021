@@ -473,7 +473,7 @@ public class EnemyAI : MonoBehaviour
             case BasicEnemyAIStates.STUN:
 
                 //Hitting weakpoints and taking damage
-                if (AllWeakpointsDisabled() && damaged == false)
+                if (AllWeakpointsDisabled() && !damaged)
                 {
                     Die();
                     health.LoseHealth(playerDamage);
@@ -671,22 +671,12 @@ public class EnemyAI : MonoBehaviour
     {
         for (int i = 0; i < weakPoints.Length; i++)
         {
-            if (weakPoints[i].popped == false)
-            {
-                weakPoints[i].gameObject.SetActive(condition);
-            }
+            weakPoints[i].SetWeakPointActive(condition);
         }
     }
     private bool AllWeakpointsDisabled()
     {
-        for (int i = 0; i < weakPoints.Length; i++)
-        {
-            if(weakPoints[i].gameObject.activeSelf)
-            {
-                return false;
-            }
-        }
-        return true;
+        return weakPoints.Length == 0;
     }
     //Stunned
     public void Stun(float duration)
@@ -703,10 +693,24 @@ public class EnemyAI : MonoBehaviour
         ExitAnyState();
         EnterDead();
     }
-    //Setting damage taken
+    //Setting damage taken from weakpoints
     public void SetPlayerDamageTaken(float amount)
     {
         playerDamage = amount;
+    }
+    public void RemoveWeakpointFromList(WeakPoint weakpoint)
+    {
+        WeakPoint[] newWeakpoints = new WeakPoint[weakPoints.Length - 1];
+        int itterate = 0;
+        for (int i = 0; i < weakPoints.Length; i++)
+        {
+            if(weakPoints[i] != weakpoint)
+            {
+                newWeakpoints[itterate] = weakPoints[i];
+                itterate++;
+            }
+        }
+        weakPoints = newWeakpoints;
     }
     private void OnDrawGizmos()
     {

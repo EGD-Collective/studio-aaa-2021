@@ -41,7 +41,6 @@ public class Health : MonoBehaviour
         //Dying
         if(currentHealth == 0)
         {
-            currentHealth = 0;
             OnDeath();
         }
     }
