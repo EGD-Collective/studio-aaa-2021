@@ -117,7 +117,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     public float focusDownDurationBase = 0.5f;
     private WeakPoint[] weakPoints;
-    private bool damaged = true;
 
     //Speed variables
     [SerializeField]
@@ -188,7 +187,8 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Animation
+        animator.SetFloat("StunDuration", stunnedDur);
         
         //Recuding attack cooldown
         attackCD -= Time.deltaTime;
@@ -473,33 +473,17 @@ public class EnemyAI : MonoBehaviour
             case BasicEnemyAIStates.STUN:
 
                 //Hitting weakpoints and taking damage
-                if (AllWeakpointsDisabled() && !damaged)
+                if (AllWeakpointsDisabled())
                 {
                     Die();
-                    health.LoseHealth(playerDamage);
-                    damaged = true;
                 }
-
-                //Transition out of stun after animation
-                //if (damaged)
-                //{
-                //    //After stun recovery animation
-                //    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                //    {
-                //        ExitStun();
-                //    }
-                //}
 
                 //Ending Stun Duration
                 stunnedDur -= Time.deltaTime;
-                if (stunnedDur <= 0 && !damaged)
+                if (stunnedDur <= 0)
                 {
-                    //After stun recovery animation
-                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                    {
-                        ExitStun();
-                        EnterChase();
-                    }
+                    ExitStun();
+                    EnterChase();
                 }
 
                 break;
@@ -589,7 +573,6 @@ public class EnemyAI : MonoBehaviour
     private void EnterStun(float duration)
     {
         //States
-        ExitAnyState();
         currentAIState = BasicEnemyAIStates.STUN;
         navMeshAgent.SetDestination(transform.position);
         navMeshAgent.speed = 0;
@@ -599,7 +582,6 @@ public class EnemyAI : MonoBehaviour
 
         //Adjusting Variables
         stunnedDur = duration;
-        damaged = false;
 
         //Animation
         animator.speed = 1;
@@ -614,7 +596,6 @@ public class EnemyAI : MonoBehaviour
     private void EnterDead()
     {
         //Chaning States
-        ExitAnyState();
         currentAIState = BasicEnemyAIStates.DEAD;
         navMeshAgent.SetDestination(transform.position);
         navMeshAgent.speed = 0;
@@ -683,6 +664,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (currentAIState != BasicEnemyAIStates.DEAD)
         {
+            ExitAnyState();
             EnterStun(duration);
         }
     }
