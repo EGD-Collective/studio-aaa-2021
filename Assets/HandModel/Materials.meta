@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/HandModel/Materials.meta
 guid: 9f4a6bd3b127f2643941b447a1d35ead
 folderAsset: yes
 DefaultImporter:
+=======
+guid: 5c27a491e54d9bb4382f80f08b277666
+PrefabImporter:
+>>>>>>> main:Assets/Prefabs/Notebook entry.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

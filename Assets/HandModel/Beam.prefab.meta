@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/HandModel/Beam.prefab.meta
 guid: d99213889d6cca843af4cc36a328d218
 PrefabImporter:
+=======
+guid: e4adca261ba43ba40997c5e51290baae
+TextScriptImporter:
+>>>>>>> main:Assets/DemonModel/notes2.txt.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
