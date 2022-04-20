@@ -185,7 +185,7 @@
                     "id": "ed66cbff-2900-4a62-8896-696503cfcd31",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "InvertVector2(invertX=false)",
+                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=15,y=15)",
                     "groups": "KeyboardMouse",
                     "action": "Look",
                     "isComposite": false,
@@ -269,6 +269,7 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
                     "id": "d41510cc-6f20-497c-bf37-b18091b499f9",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
