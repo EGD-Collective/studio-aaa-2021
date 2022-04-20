@@ -116,7 +116,7 @@ public class EnemyAI : MonoBehaviour
     public float weakPointSize = 0.3f;
     [SerializeField]
     public float focusDownDurationBase = 0.5f;
-    private WeakPoint[] weakPoints;
+    private List<WeakPoint> weakPoints;
 
     //Speed variables
     [SerializeField]
@@ -148,7 +148,7 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.speed = spd;
 
         //Weakpoints
-        weakPoints = GetComponentsInChildren<WeakPoint>();
+        weakPoints = new List<WeakPoint>(GetComponentsInChildren<WeakPoint>());
         SetWeakpointsActive(false);
 
         //Initalization
@@ -636,14 +636,14 @@ public class EnemyAI : MonoBehaviour
     //Weakpoints
     private void SetWeakpointsActive(bool condition)
     {
-        for (int i = 0; i < weakPoints.Length; i++)
+        for (int i = 0; i < weakPoints.Count; i++)
         {
             weakPoints[i].SetWeakPointActive(condition);
         }
     }
     private bool AllWeakpointsDisabled()
     {
-        return weakPoints.Length == 0;
+        return weakPoints.Count == 0;
     }
     //Stunned
     public void Stun(float duration)
@@ -668,17 +668,7 @@ public class EnemyAI : MonoBehaviour
     }
     public void RemoveWeakpointFromList(WeakPoint weakpoint)
     {
-        WeakPoint[] newWeakpoints = new WeakPoint[weakPoints.Length - 1];
-        int itterate = 0;
-        for (int i = 0; i < weakPoints.Length; i++)
-        {
-            if(weakPoints[i] != weakpoint)
-            {
-                newWeakpoints[itterate] = weakPoints[i];
-                itterate++;
-            }
-        }
-        weakPoints = newWeakpoints;
+        weakPoints.Remove(weakpoint);
     }
     private void OnDrawGizmos()
     {
