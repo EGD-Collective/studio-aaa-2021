@@ -189,7 +189,8 @@ public class EnemyAI : MonoBehaviour
     {
         //Animation
         animator.SetFloat("StunDuration", stunnedDur);
-        
+        animator.SetFloat("Speed", navMeshAgent.speed);
+
         //Recuding attack cooldown
         attackCD -= Time.deltaTime;
 
@@ -214,7 +215,6 @@ public class EnemyAI : MonoBehaviour
                                 currentPoint = patrolPath.GetChild(patrolIndex);
                                 navMeshAgent.SetDestination(currentPoint.position);
                                 navMeshAgent.speed = spd;
-                                animator.SetFloat("Speed", navMeshAgent.speed);
                             }
                             idleWait = idleWaitBase;
                         }
@@ -238,7 +238,6 @@ public class EnemyAI : MonoBehaviour
                                 //Changing states
                                 currentIdleState = BasicEnemyIdleStates.STILL;
                                 navMeshAgent.speed = 0;
-                                animator.SetFloat("Speed", navMeshAgent.speed);
 
                                 break;
                             }
@@ -355,8 +354,6 @@ public class EnemyAI : MonoBehaviour
                                 navMeshAgent.SetDestination(searchPoints[searchPointIndex]);
                                 navMeshAgent.speed = spd;
 
-                                animator.SetFloat("Speed", navMeshAgent.speed);
-
                                 currentSearchState = BasicEnemySearchStates.SEARCHPOINT;
                             }
                             lookingDur = lookingDurBase;
@@ -372,8 +369,6 @@ public class EnemyAI : MonoBehaviour
 
                             navMeshAgent.SetDestination(transform.position);
                             navMeshAgent.speed = 0;
-
-                            animator.SetFloat("Speed", navMeshAgent.speed);
                             animator.SetTrigger("ToSearch");
                         }
 
@@ -471,19 +466,18 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case BasicEnemyAIStates.STUN:
-
-                //Hitting weakpoints and taking damage
-                if (AllWeakpointsDisabled())
-                {
-                    Die();
-                }
-
                 //Ending Stun Duration
                 stunnedDur -= Time.deltaTime;
                 if (stunnedDur <= 0)
                 {
                     ExitStun();
                     EnterChase();
+                }
+
+                //Hitting weakpoints and taking damage
+                if (AllWeakpointsDisabled())
+                {
+                    Die();
                 }
 
                 break;
@@ -502,7 +496,6 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.speed = 0;
 
         //Animation
-        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.speed = 1;
     }
     private void ExitIdle()
@@ -521,7 +514,6 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.speed = spd * chaseMulti;
 
         //Animation
-        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.speed = chaseMulti;
     }
     private void EnterSearch()
@@ -532,7 +524,6 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.speed = 0;
 
         //Animation
-        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.SetTrigger("ToSearch");
         animator.speed = 1;
     }
@@ -555,7 +546,6 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.updateRotation = false;
 
         //Animation
-        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.speed = 1;
     }
     private void ExitAttack()
@@ -585,13 +575,12 @@ public class EnemyAI : MonoBehaviour
 
         //Animation
         animator.speed = 1;
-        animator.SetFloat("Speed", navMeshAgent.speed);
         animator.SetTrigger("ToStun");
     }
     private void ExitStun()
     {
         SetWeakpointsActive(false);
-        animator.SetTrigger("ToEndStun");
+        stunnedDur = 0f;
     }
     private void EnterDead()
     {
@@ -599,9 +588,6 @@ public class EnemyAI : MonoBehaviour
         currentAIState = BasicEnemyAIStates.DEAD;
         navMeshAgent.SetDestination(transform.position);
         navMeshAgent.speed = 0;
-
-        //Animation
-        animator.SetFloat("Speed", navMeshAgent.speed);
     }
 
     //Exit States
