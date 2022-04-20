@@ -6,6 +6,7 @@ namespace Assets.Scripts
     public class ClueActivator : MonoBehaviour
     {
         [SerializeField]
+        private GameObject BeamGO;
         private Light Beam;
         [SerializeField]
         private float radius;
@@ -15,14 +16,17 @@ namespace Assets.Scripts
         private LayerMask mask;
         [SerializeField]
         private float attackDamage;
+        [SerializeField]
+        private Animator handAnim;
         // Use this for initialization
         void Start()
         {
-
+            Beam = BeamGO.GetComponentInChildren<Light>();
         }
         void OnActivateBeam()
         {
-            Beam.enabled = !Beam.enabled;
+            BeamGO.SetActive(!BeamGO.activeInHierarchy);
+            handAnim.SetBool("Activate amulet", BeamGO.activeInHierarchy);
         }
         // Update is called once per frame
         void FixedUpdate()

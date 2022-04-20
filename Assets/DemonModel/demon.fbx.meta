@@ -24,6 +24,15 @@ ModelImporter:
   - first:
       74: 279670554674963251
     second: metarig.001|walk
+  - first:
+      74: -4418351572980771110
+    second: metarig.001|stagger_2
+  - first:
+      74: 1434430431242595257
+    second: metarig.001|stagger_3
+  - first:
+      74: -5823623002844394880
+    second: metarig.001|survey
   externalObjects:
   - first:
       type: UnityEngine:Material
