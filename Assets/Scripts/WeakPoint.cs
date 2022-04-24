@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeakPoint : MonoBehaviour
 {
     private SphereCollider sphereCollider;
+    private float focusDownDurationBase;
     private float focusDownDuration;
     private EnemyAI enemyAI;
     // Start is called before the first frame update
@@ -14,8 +15,16 @@ public class WeakPoint : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
 
         sphereCollider.radius = enemyAI.weakPointSize;
-        focusDownDuration = enemyAI.focusDownDurationBase;
+        focusDownDurationBase = enemyAI.focusDownDurationBase;
+        focusDownDuration = focusDownDurationBase;
     }
+
+    public void SetWeakPointActive(bool condition)
+    {
+        gameObject.SetActive(condition);
+        focusDownDuration = focusDownDurationBase;
+    }
+
 
     public void Hit(float damageAmount)
     {
@@ -23,7 +32,8 @@ public class WeakPoint : MonoBehaviour
         if(focusDownDuration <= 0)
         {
             enemyAI.SetPlayerDamageTaken(damageAmount);
-            gameObject.SetActive(false);
+            enemyAI.RemoveWeakpointFromList(this);
+            Destroy(gameObject);
         }
     }
 }

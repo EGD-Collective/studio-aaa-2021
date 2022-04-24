@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     private int patrolIndex = 0;
 
     [SerializeField]
-    private float idleWaitBase = 10f;
+    private float idleWaitBase = 5f;
     private float idleWait;
 
     //State Machines
@@ -57,38 +57,46 @@ public class EnemyAI : MonoBehaviour
     private BasicEnemySearchStates currentSearchState;
 
     //Attack
+    [System.Serializable]
+    private struct AttackCycle
+    {
+        public float attackStartupBase;
+        public float attackDurationBase;
+        public float attackRecoverBase;
+    }
     [SerializeField]
-    private float attackCDBase;
-    private float attackCD;
-    [SerializeField]
-    private float attackStartupBase;
-    private float attackStartup;
-    [SerializeField]
-    private float attackRecoverBase;
-    private float attackRecover;
-    [SerializeField]
-    private float attackDurationBase;
-    private float attackDuration;
+    private List<AttackCycle> attackCycles = new List<AttackCycle>();
+    private int currentAttackCycle = 0;
 
     [SerializeField]
-    private float attackRange;
+    private float attackCDBase = 3f;
+    private float attackCD;
+    private float attackStartup;
+    private float attackDuration;
+    private float attackRecover;
+
     [SerializeField]
-    private float attackSize;
+    private float attackRange = 1f;
+    [SerializeField]
+    private float attackSize = 1f;
     private bool hitPlayer = false;
+
+    //Damaging variables
+    private float playerDamage;
 
     //Searching variables
     [SerializeField]
-    private float lookingDurBase;
+    private float lookingDurBase = 2;
     private float lookingDur;
     private int searchPointIndex = -1;
 
     [SerializeField]
-    private float searchDistance;
+    private float searchDistance = 10f;
     private List<Vector3> searchPoints = new List<Vector3>();
 
     //Seeing Variables
     [SerializeField]
-    private float sightRange;
+    private float sightRange = 10f;
     private Vector3 lastSeen;
 
     //Collision checks
@@ -105,23 +113,19 @@ public class EnemyAI : MonoBehaviour
 
     //Stun Weakpoints
     [SerializeField]
-    public float weakPointSize;
+    public float weakPointSize = 0.3f;
     [SerializeField]
-    public float focusDownDurationBase;
-    private WeakPoint[] weakPoints;
-    private bool damaged = true;
+    public float focusDownDurationBase = 0.5f;
+    private List<WeakPoint> weakPoints;
 
     //Speed variables
     [SerializeField]
     private float spd = 2f;
     private float chaseMulti = 1.75f;
 
-    //Damaging variables
-    private float playerDamage;
-
     ///Variables
     [SerializeField]
-    private float attackDamage;
+    private float attackDamage = 5f;
 
     //Animation
     private Animator animator;
@@ -129,6 +133,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("test");
         //Getting Components
         health = GetComponent<Health>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -139,27 +144,28 @@ public class EnemyAI : MonoBehaviour
             animator = new Animator();
         }
 
+        rotationSpd = navMeshAgent.angularSpeed;
+        navMeshAgent.speed = spd;
+
         //Weakpoints
-        weakPoints = GetComponentsInChildren<WeakPoint>();
+        weakPoints = new List<WeakPoint>(GetComponentsInChildren<WeakPoint>());
         SetWeakpointsActive(false);
 
         //Initalization
-        currentAIState = BasicEnemyAIStates.IDLE;
+        EnterIdle();
         currentAttackState = BasicEnemyAttackStates.COOLDOWN;
         currentIdleState = BasicEnemyIdleStates.STILL;
         currentSearchState = BasicEnemySearchStates.LOOK;
 
-        rotationSpd = navMeshAgent.angularSpeed;
-        navMeshAgent.speed = spd;
 
         //Setting timers
         idleWait = idleWaitBase;
         lookingDur = lookingDurBase;
 
         attackCD = 0f;
-        attackStartup = attackStartupBase;
-        attackDuration = attackDurationBase;
-        attackRecover = attackRecoverBase;
+        attackStartup = 0f;
+        attackDuration = 0f;
+        attackRecover = 0f;
     }
 
     private void FixedUpdate()
@@ -173,7 +179,7 @@ public class EnemyAI : MonoBehaviour
 
         //if player is within attack range
         playerInRange = Physics.Raycast(transform.position + Vector3.up * 0.25f, toPlayer, attackRange + attackSize/2, playerLayer);
-        Debug.DrawRay(transform.position + Vector3.up * 0.25f, toPlayer);
+        
         //if player is within attack hitbox
         playerInHitbox = Physics.CheckSphere(transform.position + transform.forward * attackRange, attackSize, playerLayer);
     }
@@ -181,8 +187,10 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Animation
+        animator.SetFloat("StunDuration", stunnedDur);
+        animator.SetFloat("Speed", navMeshAgent.speed);
 
-        
         //Recuding attack cooldown
         attackCD -= Time.deltaTime;
 
@@ -206,7 +214,7 @@ public class EnemyAI : MonoBehaviour
                                 currentIdleState = BasicEnemyIdleStates.WAYPOINT;
                                 currentPoint = patrolPath.GetChild(patrolIndex);
                                 navMeshAgent.SetDestination(currentPoint.position);
-                                animator.SetTrigger("ToRun");
+                                navMeshAgent.speed = spd;
                             }
                             idleWait = idleWaitBase;
                         }
@@ -229,7 +237,7 @@ public class EnemyAI : MonoBehaviour
 
                                 //Changing states
                                 currentIdleState = BasicEnemyIdleStates.STILL;
-                                animator.SetTrigger("ToIdle");
+                                navMeshAgent.speed = 0;
 
                                 break;
                             }
@@ -330,20 +338,8 @@ public class EnemyAI : MonoBehaviour
                     case BasicEnemySearchStates.LOOK:
                         lookingDur -= Time.deltaTime;
 
-                        //Rotating to simulate looking
-                        if (lookingDur > lookingDurBase * (1.0f / 2.0f))
-                        {
-                            Vector3 rotation = new Vector3(0f, -rotationSpd / 2 * Time.deltaTime, 0f);
-                            transform.Rotate(rotation);
-                        }
-                        else
-                        {
-                            Vector3 rotation = new Vector3(0f, rotationSpd / 2 * Time.deltaTime, 0f);
-                            transform.Rotate(rotation);
-                        }
-
                         //Changing based on available search points
-                        if (lookingDur <= 0f)
+                        if (lookingDur <= 0)
                         {
                             searchPointIndex++;
 
@@ -356,6 +352,8 @@ public class EnemyAI : MonoBehaviour
                             else // Next search point
                             {
                                 navMeshAgent.SetDestination(searchPoints[searchPointIndex]);
+                                navMeshAgent.speed = spd;
+
                                 currentSearchState = BasicEnemySearchStates.SEARCHPOINT;
                             }
                             lookingDur = lookingDurBase;
@@ -368,6 +366,10 @@ public class EnemyAI : MonoBehaviour
                         if (Vector3.Distance(transform.position, searchPoints[searchPointIndex]) < 0.5f)
                         {
                             currentSearchState = BasicEnemySearchStates.LOOK;
+
+                            navMeshAgent.SetDestination(transform.position);
+                            navMeshAgent.speed = 0;
+                            animator.SetTrigger("ToSearch");
                         }
 
                         break;
@@ -386,9 +388,9 @@ public class EnemyAI : MonoBehaviour
                             EnterChase();
                         }
 
+                        //rotation if player out of range
                         if (!playerInHitbox)
                         {
-                            //rotation
                             Vector2 centerPoint = new Vector2(transform.position.x, transform.position.z);
                             Vector2 facingPoint = new Vector2(transform.forward.x, transform.forward.z);
                             Vector2 endPoint = centerPoint - new Vector2(player.transform.position.x, player.transform.position.z);
@@ -399,34 +401,45 @@ public class EnemyAI : MonoBehaviour
                         }
                         else
                         {
+                            //Starting Attack
                             if (attackCD < 0f)
                             {
+                                //State Change
                                 currentAttackState = BasicEnemyAttackStates.STARTUP;
+
+                                //Setting timers
                                 attackCD = attackCDBase;
+                                attackStartup = attackCycles[currentAttackCycle].attackStartupBase;
+
+                                //Starting animation
                                 animator.SetTrigger("ToAttack");
                             }
                         }
                         break;
                     case BasicEnemyAttackStates.STARTUP:
-                        attackStartup -= Time.deltaTime;
-                        if (attackStartup < 0f)
+                        if (!animator.IsInTransition(0))
                         {
-                            currentAttackState = BasicEnemyAttackStates.ATTACK;
-                            attackStartup = attackStartupBase;
+                            attackStartup -= Time.deltaTime;
+                            if (attackStartup < 0f)
+                            {
+                                currentAttackState = BasicEnemyAttackStates.ATTACK;
+                                attackDuration = attackCycles[currentAttackCycle].attackDurationBase;
+                            }
                         }
                         break;
                     case BasicEnemyAttackStates.ATTACK:
                         attackDuration -= Time.deltaTime;
+                        if (attackDuration < 0f)
+                        {
+                            currentAttackState = BasicEnemyAttackStates.RECOVERY;   
+                            attackRecover = attackCycles[currentAttackCycle].attackRecoverBase;
+                        }
+
+                        //Hitting the player
                         if (playerInHitbox && !hitPlayer)
                         {
                             hitPlayer = true;
                             player.GetComponent<Health>().LoseHealth(attackDamage);
-                        }
-                        if (attackDuration < 0f)
-                        {
-                            currentAttackState = BasicEnemyAttackStates.RECOVERY;
-                            attackDuration = attackDurationBase;
-                            animator.SetTrigger("ToIdle");
                         }
                         break;
                     case BasicEnemyAttackStates.RECOVERY:
@@ -435,36 +448,36 @@ public class EnemyAI : MonoBehaviour
                         {
                             hitPlayer = false;
                             currentAttackState = BasicEnemyAttackStates.COOLDOWN;
-                            attackRecover = attackRecoverBase;
+
+                            currentAttackCycle++;
+
+                            if(currentAttackCycle >= attackCycles.Count)
+                            {
+                                currentAttackState = BasicEnemyAttackStates.COOLDOWN;
+                                currentAttackCycle = 0;
+                            }
+                            else
+                            {
+                                attackStartup = attackCycles[currentAttackCycle].attackStartupBase;
+                                currentAttackState = BasicEnemyAttackStates.STARTUP;
+                            }
                         }
                         break;
                 }
                 break;
             case BasicEnemyAIStates.STUN:
-
-                //Transition out of stun after animation
-                if (damaged)
+                //Ending Stun Duration
+                stunnedDur -= Time.deltaTime;
+                if (stunnedDur <= 0)
                 {
-                    //After taking damage animation
-                    if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
-                    {
-                        ExitStun();
-                    }
+                    ExitStun();
+                    EnterChase();
                 }
 
                 //Hitting weakpoints and taking damage
-                if (AllWeakpointsDisabled() && damaged == false)
+                if (AllWeakpointsDisabled())
                 {
-                    animator.SetTrigger("ToTakeDamage");
-                    health.LoseHealth(playerDamage);
-                    damaged = true;
-                }
-
-                //Ending Stun Duration
-                stunnedDur -= Time.deltaTime;
-                if (stunnedDur <= 0 && !damaged)
-                {
-                    ExitStun();
+                    Die();
                 }
 
                 break;
@@ -473,16 +486,16 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
     //State machine Transitions
     private void EnterIdle()
     {
         //State and navigation
         currentAIState = BasicEnemyAIStates.IDLE;
-        navMeshAgent.speed = spd;
         navMeshAgent.SetDestination(transform.position);
-        
+        navMeshAgent.speed = 0;
+
         //Animation
-        animator.SetTrigger("ToIdle");
         animator.speed = 1;
     }
     private void ExitIdle()
@@ -497,12 +510,10 @@ public class EnemyAI : MonoBehaviour
         currentAIState = BasicEnemyAIStates.CHASE;
 
         //Navigation
-        lastSeen = player.transform.position;
         navMeshAgent.SetDestination(lastSeen);
         navMeshAgent.speed = spd * chaseMulti;
 
         //Animation
-        animator.SetTrigger("ToRun");
         animator.speed = chaseMulti;
     }
     private void EnterSearch()
@@ -510,10 +521,10 @@ public class EnemyAI : MonoBehaviour
         //State and navigation
         currentAIState = BasicEnemyAIStates.SEARCH;
         navMeshAgent.SetDestination(transform.position);
-        navMeshAgent.speed = spd;
+        navMeshAgent.speed = 0;
 
         //Animation
-        animator.SetTrigger("ToRun");
+        animator.SetTrigger("ToSearch");
         animator.speed = 1;
     }
     private void ExitSearch()
@@ -531,10 +542,10 @@ public class EnemyAI : MonoBehaviour
         
         //Navigation
         navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.speed = 0;
         navMeshAgent.updateRotation = false;
-        
+
         //Animation
-        animator.SetTrigger("ToIdle");
         animator.speed = 1;
     }
     private void ExitAttack()
@@ -544,14 +555,14 @@ public class EnemyAI : MonoBehaviour
         hitPlayer = false;
 
         //Resetting attack timers
-        attackStartup = attackStartupBase;
-        attackDuration = attackDurationBase;
-        attackRecover = attackRecoverBase;
+        attackStartup = 0f;
+        attackDuration = 0f;
+        attackRecover = 0f;
+        currentAttackCycle = 0;
     }
     private void EnterStun(float duration)
     {
         //States
-        ExitAnyState();
         currentAIState = BasicEnemyAIStates.STUN;
         navMeshAgent.SetDestination(transform.position);
         navMeshAgent.speed = 0;
@@ -561,25 +572,22 @@ public class EnemyAI : MonoBehaviour
 
         //Adjusting Variables
         stunnedDur = duration;
-        damaged = false;
 
         //Animation
         animator.speed = 1;
-        animator.SetTrigger("ToIdle");
+        animator.SetTrigger("ToStun");
     }
     private void ExitStun()
     {
-        EnterIdle();
         SetWeakpointsActive(false);
+        stunnedDur = 0f;
     }
     private void EnterDead()
     {
         //Chaning States
-        ExitAnyState();
         currentAIState = BasicEnemyAIStates.DEAD;
-
-        //Animation
-        animator.SetTrigger("ToDie");
+        navMeshAgent.SetDestination(transform.position);
+        navMeshAgent.speed = 0;
     }
 
     //Exit States
@@ -628,39 +636,39 @@ public class EnemyAI : MonoBehaviour
     //Weakpoints
     private void SetWeakpointsActive(bool condition)
     {
-        for (int i = 0; i < weakPoints.Length; i++)
+        for (int i = 0; i < weakPoints.Count; i++)
         {
-            weakPoints[i].gameObject.SetActive(condition);
+            weakPoints[i].SetWeakPointActive(condition);
         }
     }
     private bool AllWeakpointsDisabled()
     {
-        for (int i = 0; i < weakPoints.Length; i++)
-        {
-            if(weakPoints[i].gameObject.activeSelf)
-            {
-                return false;
-            }
-        }
-        return true;
+        return weakPoints.Count == 0;
     }
     //Stunned
     public void Stun(float duration)
     {
         if (currentAIState != BasicEnemyAIStates.DEAD)
         {
+            ExitAnyState();
             EnterStun(duration);
         }
     }
     //Dying
     public void Die()
     {
+        Debug.Log(gameObject.name + " is dead");
+        ExitAnyState();
         EnterDead();
     }
-    //Setting damage taken
+    //Setting damage taken from weakpoints
     public void SetPlayerDamageTaken(float amount)
     {
         playerDamage = amount;
+    }
+    public void RemoveWeakpointFromList(WeakPoint weakpoint)
+    {
+        weakPoints.Remove(weakpoint);
     }
     private void OnDrawGizmos()
     {
