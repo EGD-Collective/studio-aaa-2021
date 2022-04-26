@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2142cd3927e85cd448fe446d27a95710, type: 3}
+  m_Name: Parent's Gift (Entry)
+  m_EditorClassIdentifier: 
+  stage:
+    OnStageStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStageEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    clues: []
+  title: Unopened Parent's Gift
+  shortDescription: "The pattern on the wrapping paper is childish and you can tell
+    that it\u2019s been wrapped a bit clumsily. On the top you can make out words
+    written in pen: \u201CHappy Birthday, Mom!\u201D"
