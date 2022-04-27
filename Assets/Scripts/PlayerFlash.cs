@@ -50,7 +50,10 @@ public class PlayerFlash : MonoBehaviour
         if (flashCooldown <= 0)
         {
             //Flash Animation
-            flashAnimator.SetTrigger("ToFlash");
+            if (flashAnimator)
+            {
+                flashAnimator.SetTrigger("ToFlash");
+            }
 
             //Checking for enemy
             RaycastHit[] enemyHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange, enemyLayer);

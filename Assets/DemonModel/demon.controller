@@ -143,13 +143,13 @@ AnimatorStateMachine:
     m_Position: {x: 530, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4291600985774679966}
-    m_Position: {x: 100, y: 290, z: 0}
+    m_Position: {x: 170, y: 270, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8514795016231631952}
-    m_Position: {x: 510, y: 0, z: 0}
+    m_Position: {x: 500, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4522979783171981544}
-    m_Position: {x: 620, y: -80, z: 0}
+    m_Position: {x: 620, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3436996344902868089}
     m_Position: {x: -100, y: -10, z: 0}
@@ -331,7 +331,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: ToStun
-    m_EventTreshold: 0
+    m_EventTreshold: 0.0001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2662993272167195067}
   m_Solo: 0
@@ -452,6 +452,12 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: ToSearch
     m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: StunDuration
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -793,9 +799,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: ToEndStun
-    m_EventTreshold: 0
+  - m_ConditionMode: 4
+    m_ConditionEvent: StunDuration
+    m_EventTreshold: 0.0001
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8514795016231631952}
   m_Solo: 0
