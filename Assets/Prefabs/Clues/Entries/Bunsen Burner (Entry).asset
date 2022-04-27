@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2142cd3927e85cd448fe446d27a95710, type: 3}
-  m_Name: Bunsen Burner
+  m_Name: Bunsen Burner (Entry)
   m_EditorClassIdentifier: 
   stage:
     OnStageStart:
@@ -20,5 +20,6 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     clues: []
-  title: 
-  shortDescription: 
+  title: Bunsen Burner
+  shortDescription: This looks like no one has used it, ever. There are no burn marks
+    anywhere on this bunsen burner.

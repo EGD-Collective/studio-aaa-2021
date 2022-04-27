@@ -81,7 +81,7 @@ MonoBehaviour:
       m_Calls: []
   Activated: 0
   SetActiveOnStageStart: 1
-  clueNote: {fileID: 11400000, guid: 4feafec920ecd2b4a9071f856e9f3b58, type: 2}
+  clueNote: {fileID: 11400000, guid: fcf0168610bef8845833c44614090553, type: 2}
 --- !u!1001 &1211738554669455524
 PrefabInstance:
   m_ObjectHideFlags: 0
