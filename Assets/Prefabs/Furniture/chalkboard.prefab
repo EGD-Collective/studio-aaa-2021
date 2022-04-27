@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3760909712864404515}
   - component: {fileID: 260844704438315910}
   - component: {fileID: 2628487727926386508}
+  - component: {fileID: 3715850811521195496}
   m_Layer: 0
   m_Name: chalkboard
   m_TagString: Untagged
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3715850811521195496
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574179313249238681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1350837, y: 0.13101007, z: 1.5924853}
+  m_Center: {x: -0.22705507, y: -0.050172348, z: 0.18699966}

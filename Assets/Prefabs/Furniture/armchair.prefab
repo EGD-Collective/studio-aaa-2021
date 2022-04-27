@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 2660502237626063934}
   - component: {fileID: 4899646201293386711}
   - component: {fileID: 2066141949111155658}
+  - component: {fileID: 6962968359409747960}
   m_Layer: 0
   m_Name: Cube.002
   m_TagString: Untagged
@@ -249,6 +250,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6962968359409747960
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230927468173041122}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23379982, y: 1.3765031, z: 2.3140192}
+  m_Center: {x: 0.47199363, y: 0.0349853, z: 1.1028383}
 --- !u!1 &6377213499978043911
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7904937782335912940}
+  - component: {fileID: 6810018029386945192}
   m_Layer: 0
   m_Name: armchair
   m_TagString: Untagged
@@ -453,6 +468,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6810018029386945192
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7419728401629602134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.89865494, y: 1.3355656, z: 1.4188929}
+  m_Center: {x: -0.05067253, y: 0.5934324, z: -0.03378153}
 --- !u!1 &8569003049839161462
 GameObject:
   m_ObjectHideFlags: 0
