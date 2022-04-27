@@ -20,5 +20,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     clues: []
-  title: 
-  shortDescription: 
+  title: Unsigned Permission Slips
+  shortDescription: "You find a pile of permission slips for various things: School
+    dances, field trips, and even report cards.\r\nAs you flip through them, you
+    realize that all of their deadlines have passed, but none of them are signed.\r\nThe
+    report cards are filled with A\u2019s and A+\u2019s"

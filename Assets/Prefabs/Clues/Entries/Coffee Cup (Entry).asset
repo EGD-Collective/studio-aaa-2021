@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2142cd3927e85cd448fe446d27a95710, type: 3}
-  m_Name: The Closet (Entry)
+  m_Name: Coffee Cup (Entry)
   m_EditorClassIdentifier: 
   stage:
     OnStageStart:
@@ -20,9 +20,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     clues: []
-  title: The Closet
-  shortDescription: "The entire front face of the closet door is scorched and covered
-    in smoke and charcoal dust. \r\nThe inside, however, is far cleaner than everything
-    on the outside. \r\nOnly a thin layer of smoke covers most of the inside, but
-    you can make out a large clean spot in the middle of the floor and near the door.\r\nThe
-    inner handle is damaged and splintered, also free of soot.\r"
+  title: Empty Coffee Cup
+  shortDescription: "This cup seems well-used, from the slight yellowing of the ceramic.
+    Inside, you can see a few thin coffee rings on the sides left from the last time
+    it was used. \r\nThe coffee rings are located closer to the top of the cup, indicating
+    that it was mostly full for a while, before being emptied very quickly.\r"
