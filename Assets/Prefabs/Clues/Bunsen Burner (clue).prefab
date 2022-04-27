@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   Activated: 0
   SetActiveOnStageStart: 1
-  clueNote: {fileID: 11400000, guid: 4feafec920ecd2b4a9071f856e9f3b58, type: 2}
+  clueNote: {fileID: 11400000, guid: 1f69f168ac7e76c4d929c523b3d11a1e, type: 2}
 --- !u!65 &2167597947034240075
 BoxCollider:
   m_ObjectHideFlags: 0
