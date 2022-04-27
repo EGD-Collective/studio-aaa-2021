@@ -164,4 +164,4 @@ MonoBehaviour:
       m_Calls: []
   Activated: 0
   SetActiveOnStageStart: 1
-  clueNote: {fileID: 11400000, guid: 4feafec920ecd2b4a9071f856e9f3b58, type: 2}
+  clueNote: {fileID: 11400000, guid: 8c404ae8d4efb8044bc43a8ef6299c68, type: 2}
