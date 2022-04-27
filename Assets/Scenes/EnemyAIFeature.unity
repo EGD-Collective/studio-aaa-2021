@@ -644,29 +644,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8220656003159781779, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
   m_PrefabInstance: {fileID: 1124028536}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &278418218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278418216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6014ff08f5246ba4b984bbf91f7435aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  flashPointLight: {fileID: 0}
-  flashRange: 7
-  stunDuration: 5
-  flashCooldownBase: 3
-  flashCooldownBar: {fileID: 434331790}
 --- !u!1 &319159801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,6 +2478,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 278418218, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: flashCooldownBar
+      value: 
+      objectReference: {fileID: 434331790}
     - target: {fileID: 8220656003159781779, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: m_RootOrder
       value: 0
