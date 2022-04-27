@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8286784634963476956}
   - component: {fileID: 4949254973782675065}
   - component: {fileID: 7155021773157055155}
+  - component: {fileID: 7627701945486709769}
   m_Layer: 0
   m_Name: Bookshelf 1
   m_TagString: Untagged
@@ -25,14 +26,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8668094565692578662}
-  m_LocalRotation: {x: -0.7071067, y: -0.000000030908616, z: 0.000000030908623, w: 0.7071068}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -19.289627, y: 4.29, z: 17.036222}
-  m_LocalScale: {x: 303.51273, y: 14.202267, z: 371.2914}
+  m_LocalScale: {x: 1, y: 0.027077386, z: 1.1599}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &4949254973782675065
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7627701945486709769
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8668094565692578662}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 19.889513, z: 1.9999995}
+  m_Center: {x: -3.4430193e-16, y: -8.9447565, z: -3.9722703e-15}
