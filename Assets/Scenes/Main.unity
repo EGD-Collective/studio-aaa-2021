@@ -3277,7 +3277,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.2155173, y: 1}
+    m_SensorSize: {x: 1.0150862, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3725,14 +3725,6 @@ PrefabInstance:
     - target: {fileID: 2442811339828353075, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2442811339828353076, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1750891227, guid: dc39a627e496cda408fb499b3a3f8070, type: 3}
-    - target: {fileID: 2442811339828353076, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 12.99
       objectReference: {fileID: 0}
     - target: {fileID: 2442811340648978399, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4878,7 +4870,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1800974449}
   m_HandleRect: {fileID: 1800974448}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
