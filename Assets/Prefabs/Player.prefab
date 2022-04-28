@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 5039576997897172821}
   - component: {fileID: 8745554764331559717}
   - component: {fileID: 1065925502163890849}
+  - component: {fileID: 278418218}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -355,6 +356,29 @@ MonoBehaviour:
     m_Bits: 72
   attackDamage: 0
   handAnim: {fileID: 1727740983604825255}
+--- !u!114 &278418218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745554764331559721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6014ff08f5246ba4b984bbf91f7435aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  flashPointLight: {fileID: 0}
+  flashRange: 7
+  stunDuration: 5
+  flashCooldownBase: 3
+  flashCooldownBar: {fileID: 0}
 --- !u!1001 &8624174351515778614
 PrefabInstance:
   m_ObjectHideFlags: 0
