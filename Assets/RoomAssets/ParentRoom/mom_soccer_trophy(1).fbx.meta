@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: c2e3b0f7878ae954989be156f20fbc24
+guid: 3142fb15423de4134b506f241ac2268f
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1651056015579946751
+    second: stars|Shader NodetreeAction.002
   externalObjects: {}
   materials:
     materialImportMode: 2

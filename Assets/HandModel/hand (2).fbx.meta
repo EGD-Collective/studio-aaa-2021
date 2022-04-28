@@ -1,8 +1,32 @@
 fileFormatVersion: 2
-guid: d7a48dcf1497c9f4eb18abd43cad96ea
+guid: fd629697269f147d895594752c9a4ecc
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 8095181331201448214
+    second: Armature|hand_amulet
+  - first:
+      74: -7233140167207350124
+    second: Armature|hand_amulet_to_present
+  - first:
+      74: 1416839890256724821
+    second: Armature|hand_clasp
+  - first:
+      74: 1627835235824336890
+    second: Armature|hand_empty
+  - first:
+      74: -4846021589500338925
+    second: Armature|hand_flash
+  - first:
+      74: 2845805929111857989
+    second: Armature|hand_present
+  - first:
+      74: -1671567668773536094
+    second: Armature|hand_present_to_amulet
+  - first:
+      74: 5508062484833401239
+    second: Armature|PoseLib
   externalObjects: {}
   materials:
     materialImportMode: 2

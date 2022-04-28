@@ -1,8 +1,35 @@
 fileFormatVersion: 2
-guid: c8c92b8e49c9c1b4892c48088ea1b7cc
+guid: bedbed93c8bfb42c7873830cda7a0f95
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 2205001644816585228
+    second: metarig.001|attack
+  - first:
+      74: 2719365342684236196
+    second: metarig.001|attack_old1
+  - first:
+      74: 4396564986115863379
+    second: metarig.001|idle
+  - first:
+      74: -1592242179603529956
+    second: metarig.001|PoseLib
+  - first:
+      74: 7196354776549880108
+    second: metarig.001|stagger
+  - first:
+      74: -4418351572980771110
+    second: metarig.001|stagger_2
+  - first:
+      74: 1434430431242595257
+    second: metarig.001|stagger_3
+  - first:
+      74: -5823623002844394880
+    second: metarig.001|survey
+  - first:
+      74: 279670554674963251
+    second: metarig.001|walk
   externalObjects: {}
   materials:
     materialImportMode: 2
