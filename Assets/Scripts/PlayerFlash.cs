@@ -19,8 +19,12 @@ public class PlayerFlash : MonoBehaviour
     [SerializeField]
     private float stunDuration;
     [SerializeField]
+    private float revealDuration;
+    [SerializeField]
     private float flashCooldownBase;
     private float flashCooldown;
+
+
 
     //UI
     [SerializeField]
@@ -50,24 +54,29 @@ public class PlayerFlash : MonoBehaviour
         if (flashCooldown <= 0)
         {
             //Flash Animation
-            flashAnimator.SetTrigger("ToFlash");
+            if (flashAnimator)
+            {
+                flashAnimator.SetTrigger("ToFlash");
+            }
 
             //Checking for enemy
-            RaycastHit[] enemyHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange, enemyLayer);
-            for (int i = 0; i < enemyHit.Length; i++)
+            RaycastHit[] flashHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange);
+            for (int i = 0; i < flashHit.Length; i++)
             {
-                //Checking for hitting enemy
-                if (enemyHit[i].transform.TryGetComponent<EnemyAI>(out EnemyAI enemyAI))
+                //Checking not blocked
+                Vector3 toHit = flashHit[i].transform.position - transform.position;
+                if (!Physics.Raycast(transform.position, toHit, toHit.magnitude, groundLayer))
                 {
-                    Vector3 toEnemy = enemyAI.transform.position - transform.position;
-
-                    //If its not obstructed
-                    if (!Physics.Raycast(transform.position, toEnemy, toEnemy.magnitude, groundLayer))
+                    //Hit Enemy
+                    if (flashHit[i].transform.TryGetComponent<EnemyAI>(out EnemyAI enemyAI))
                     {
                         enemyAI.Stun(stunDuration);
                     }
-
-                    break;
+                    //Checking for hitting base clue
+                    if (flashHit[i].transform.TryGetComponent<FlashIndicator>(out FlashIndicator flashIndicator))
+                    {
+                        flashIndicator.ActivateIndicator(revealDuration);
+                    }
                 }
             }
 
