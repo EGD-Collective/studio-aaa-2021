@@ -16,7 +16,7 @@ public class Notebook : MonoBehaviour
         instance = this;
     }
 
-    private List<NotebookEntry> entries;
+    private List<NotebookEntry> entries = new List<NotebookEntry>();
     [SerializeField]
     private NotebookEntry entryPrefab;
 
