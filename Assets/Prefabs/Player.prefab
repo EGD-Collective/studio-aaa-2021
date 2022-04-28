@@ -377,6 +377,7 @@ MonoBehaviour:
   flashPointLight: {fileID: 0}
   flashRange: 7
   stunDuration: 5
+  revealDuration: 0
   flashCooldownBase: 3
   flashCooldownBar: {fileID: 0}
 --- !u!1001 &8624174351515778614
