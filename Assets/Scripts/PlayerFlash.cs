@@ -6,7 +6,7 @@ public class PlayerFlash : MonoBehaviour
 {
     //Layers
     [SerializeField]
-    private LayerMask groundLayer, enemyLayer;
+    private LayerMask groundLayer;
 
     //Light
     [SerializeField]
@@ -46,7 +46,10 @@ public class PlayerFlash : MonoBehaviour
         flashCooldown -= Time.deltaTime;
 
         //UI
-        flashCooldownBar.value = 1f - Mathf.Max(0f, flashCooldown / flashCooldownBase);
+        if (flashCooldownBar)
+        {
+            flashCooldownBar.value = 1f - Mathf.Max(0f, flashCooldown / flashCooldownBase);
+        }
     }
 
     public void OnFlash()
@@ -64,8 +67,8 @@ public class PlayerFlash : MonoBehaviour
             for (int i = 0; i < flashHit.Length; i++)
             {
                 //Checking not blocked
-                Vector3 toHit = flashHit[i].transform.position - transform.position;
-                if (!Physics.Raycast(transform.position, toHit, toHit.magnitude, groundLayer))
+                Vector3 toHit = (flashHit[i].transform.position + (Vector3.up * 1.6f)) - (transform.position + (Vector3.up * 1.6f));
+                if (!Physics.Raycast(transform.position + (Vector3.up * 1.6f), toHit, toHit.magnitude, groundLayer))
                 {
                     //Hit Enemy
                     if (flashHit[i].transform.TryGetComponent<EnemyAI>(out EnemyAI enemyAI))
