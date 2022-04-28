@@ -9,6 +9,12 @@ public class Notebook : MonoBehaviour
     public GameObject entryContainer;
     [SerializeField]
     private PlayerInput playerInput;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip openSound;
+    [SerializeField]
+    private AudioClip addEntrySound;
     private void Awake()
     {
         if (instance)
@@ -31,11 +37,13 @@ public class Notebook : MonoBehaviour
         newEntry.title.text = entry.title;
         newEntry.shortDescription.text = entry.shortDescription;
         entries.Add(newEntry);
+        audioSource.PlayOneShot(addEntrySound);
     }
 
     public void OnOpenNotebook()
     {
         gameObject.SetActive(!gameObject.activeInHierarchy);
+        audioSource.PlayOneShot(openSound);
         Time.timeScale = gameObject.activeInHierarchy ? 0 : 1;
     }
 }
