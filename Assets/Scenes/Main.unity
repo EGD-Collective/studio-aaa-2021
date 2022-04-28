@@ -960,7 +960,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 544619980}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1920,6 +1920,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 596282359}
+    - target: {fileID: 3310871447907792202, guid: 313e36451e2259246971a6941ca4392a, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 5790857570710580356, guid: 313e36451e2259246971a6941ca4392a, type: 3}
       propertyPath: m_Name
       value: demon
@@ -3499,7 +3503,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7765957, y: 1}
+    m_SensorSize: {x: 1.7762644, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
