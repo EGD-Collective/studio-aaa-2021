@@ -46,7 +46,10 @@ public class PlayerFlash : MonoBehaviour
         flashCooldown -= Time.deltaTime;
 
         //UI
-        flashCooldownBar.value = 1f - Mathf.Max(0f, flashCooldown / flashCooldownBase);
+        if (flashCooldownBar)
+        {
+            flashCooldownBar.value = 1f - Mathf.Max(0f, flashCooldown / flashCooldownBase);
+        }
     }
 
     public void OnFlash()
