@@ -11,6 +11,10 @@ public class GhostGlimpseTriggerCollision : GhostGlimpseTrigger
     void Start()
     {
         spawnColDwn = spawnColDwnBase;
+
+        GhostGlimpseManager manager = GetComponentInParent<GhostGlimpseManager>();
+
+        glimpseSpeed = manager.glimpseSpeed;
     }
 
     // Update is called once per frame

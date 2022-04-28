@@ -14,7 +14,6 @@ public class GhostGlimpseTriggerSight : GhostGlimpseTrigger
     //Variables for seeing player
     [SerializeField]
     private Camera playerView;
-    [SerializeField]
     private Transform playerTransform;
     [SerializeField]
     private LayerMask levelLayer;
@@ -29,6 +28,9 @@ public class GhostGlimpseTriggerSight : GhostGlimpseTrigger
     void Start()
     {
         triggerDelay = triggerDelayBase;
+        GhostGlimpseManager manager = GetComponentInParent<GhostGlimpseManager>();
+        playerTransform = manager.playerTransform;
+        glimpseSpeed = manager.glimpseSpeed;
     }
 
     private void FixedUpdate()

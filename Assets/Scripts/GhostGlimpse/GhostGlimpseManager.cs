@@ -17,7 +17,10 @@ public class GhostGlimpseManager : MonoBehaviour
     private float glimpseFrequencyVariation;
 
     [SerializeField]
-    private Transform playerTransform;
+    public Transform playerTransform;
+
+    [SerializeField]
+    public float glimpseSpeed;
 
     [SerializeField]
     private GhostGlimpseTrigger[] glimpseTriggers;
