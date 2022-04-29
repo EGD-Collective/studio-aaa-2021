@@ -8131,10 +8131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37ddac4ef475a444a308880ee912bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glimpseFrequencyBase: 5
+  glimpseFrequencyBase: 10
   glimpseFrequency: 0
   closestTriggerRefresh: 0
-  glimpseFrequencyVariation: 1
+  glimpseFrequencyVariation: 2
   playerTransform: {fileID: 1065925502472788023}
   glimpseSpeed: 15
   glimpseTriggers: []
