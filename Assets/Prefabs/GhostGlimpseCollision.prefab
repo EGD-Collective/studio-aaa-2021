@@ -65,7 +65,7 @@ MonoBehaviour:
   triggerPoint: {fileID: 5815225143764488750}
   spawnPoint: {fileID: 8864528671052764174}
   endPoint: {fileID: 8191680261470394773}
-  glimpseObject: {fileID: 7372754561747490872, guid: 04eceb1f868ab6147bd90a7c0a879a77, type: 3}
+  glimpseObject: {fileID: 3387675465633613927, guid: b7f4694050ccb034ea114a93ea175977, type: 3}
   oneUse: 1
   used: 1
   canTrigger: 1

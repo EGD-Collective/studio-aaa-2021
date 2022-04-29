@@ -46,6 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37ddac4ef475a444a308880ee912bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glimpseFrequencyBase: 5
+  glimpseFrequency: 0
+  closestTriggerRefresh: 0
+  glimpseFrequencyVariation: 1
+  playerTransform: {fileID: 0}
+  glimpseSpeed: 15
+  glimpseTriggers: []
 --- !u!1001 &2362252659238046614
 PrefabInstance:
   m_ObjectHideFlags: 0
