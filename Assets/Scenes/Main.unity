@@ -7950,14 +7950,30 @@ PrefabInstance:
       propertyPath: flashCooldownBar
       value: 
       objectReference: {fileID: 46796127}
+    - target: {fileID: 278418218, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: revealDurationBase
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1065925502163890849, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: mask.m_Bits
-      value: 2112
+      value: 6208
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864765160506749418, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: m_Intensity
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6258800373116737585, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1373521504}
+    - target: {fileID: 7377053825647862816, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7509245796409619658, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220656003159781779, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: m_RootOrder
       value: 0

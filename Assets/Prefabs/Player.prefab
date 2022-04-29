@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1839165933113053229
 Transform:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0
+  m_Intensity: 300
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -241,7 +241,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7509245796409619658}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e6af750d27bcd424abf20fc248f10938, type: 2}
   m_CullingMode: 0
@@ -514,7 +514,7 @@ MonoBehaviour:
   origin: {fileID: 2446132894068488334}
   mask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 6208
   attackDamage: 0
   handAnim: {fileID: 1727740983604825255}
 --- !u!114 &278418218
@@ -535,7 +535,7 @@ MonoBehaviour:
   flashPointLight: {fileID: 2864765160506749418}
   flashRange: 7
   stunDuration: 5
-  revealDuration: 5
+  revealDurationBase: 3
   flashCooldownBase: 3
   flashCooldownBar: {fileID: 0}
 --- !u!114 &6258800373116737585
