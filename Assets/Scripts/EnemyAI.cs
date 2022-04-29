@@ -126,14 +126,16 @@ public class EnemyAI : MonoBehaviour
     ///Variables
     [SerializeField]
     private float attackDamage = 5f;
-
+    
     //Animation
     private Animator animator;
+
+    [SerializeField]
+    private ParticleSystem[] deathParticles;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("test");
         //Getting Components
         health = GetComponent<Health>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -156,7 +158,6 @@ public class EnemyAI : MonoBehaviour
         currentAttackState = BasicEnemyAttackStates.COOLDOWN;
         currentIdleState = BasicEnemyIdleStates.STILL;
         currentSearchState = BasicEnemySearchStates.LOOK;
-
 
         //Setting timers
         idleWait = idleWaitBase;
@@ -588,8 +589,13 @@ public class EnemyAI : MonoBehaviour
         currentAIState = BasicEnemyAIStates.DEAD;
         navMeshAgent.SetDestination(transform.position);
         navMeshAgent.speed = 0;
-    }
 
+        //Playing death particles
+        for(int i = 0; i < deathParticles.Length; i++)
+        {
+            deathParticles[i].Play();
+        }
+    }
     //Exit States
     private void ExitAnyState()
     {

@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 278418218}
   - component: {fileID: 6258800373116737585}
   - component: {fileID: 6152443372798186437}
+  - component: {fileID: 1065925502472788024}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -553,7 +554,19 @@ MonoBehaviour:
   currentHealth: 0
   onDeathActivated:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1065925502472788024}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: SetScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Main
+          m_BoolArgument: 0
+        m_CallState: 2
   healthBar: {fileID: 0}
 --- !u!82 &6152443372798186437
 AudioSource:
@@ -651,6 +664,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1065925502472788024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745554764331559721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a62b1722d8af0449c41f0104f2d38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8624174351515778614
 PrefabInstance:
   m_ObjectHideFlags: 0

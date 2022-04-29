@@ -1048,7 +1048,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 544619981}
   m_HandleRect: {fileID: 544619980}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2020,7 +2020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5790857570710580356, guid: 313e36451e2259246971a6941ca4392a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6563595048806889022, guid: 313e36451e2259246971a6941ca4392a, type: 3}
       propertyPath: m_RootOrder
@@ -3794,7 +3794,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7779784, y: 1}
+    m_SensorSize: {x: 1.7774192, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3819,11 +3819,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &1202866580 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 2864765160506749418, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-  m_PrefabInstance: {fileID: 1065925502472788021}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1216955873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4574,6 +4569,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1414285704 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2442811340130917566, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
+  m_PrefabInstance: {fileID: 1373521503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1434003553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8146,25 +8152,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 278418218, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: revealDuration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 278418218, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: flashPointLight
-      value: 
-      objectReference: {fileID: 1202866580}
-    - target: {fileID: 278418218, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: flashCooldownBar
       value: 
       objectReference: {fileID: 46796127}
-    - target: {fileID: 2864765160506749418, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: m_Intensity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7578860105316605506, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 6258800373116737585, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1414285704}
     - target: {fileID: 8220656003159781779, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: m_RootOrder
       value: 0
