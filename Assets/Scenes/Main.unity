@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 544619980}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2024,7 +2024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5790857570710580356, guid: 313e36451e2259246971a6941ca4392a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6563595048806889022, guid: 313e36451e2259246971a6941ca4392a, type: 3}
       propertyPath: m_RootOrder
@@ -3782,7 +3782,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7804878, y: 1}
+    m_SensorSize: {x: 1.7790123, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

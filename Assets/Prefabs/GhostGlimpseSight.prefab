@@ -112,11 +112,9 @@ MonoBehaviour:
   triggerPoint: {fileID: 4318987924744567424}
   spawnPoint: {fileID: 1172858998073130144}
   endPoint: {fileID: 1940283003814867259}
-  glimpseObject: {fileID: 3387675465633613927, guid: b7f4694050ccb034ea114a93ea175977, type: 3}
-  oneUse: 1
+  glimpseObject: {fileID: 1392084483638529160, guid: bf43c6f4f5613c548893f551ea133926, type: 3}
   used: 1
   canTrigger: 1
-  glimpseSpeed: 50
   triggerDelayBase: 0
   playerView: {fileID: 0}
   levelLayer:
