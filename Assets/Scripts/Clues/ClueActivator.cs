@@ -32,7 +32,7 @@ namespace Assets.Scripts
         // Update is called once per frame
         void FixedUpdate()
         {
-            if (Beam.enabled && Physics.SphereCast(origin.transform.position, radius, origin.transform.forward, out RaycastHit hit, Beam.range, ~mask))
+            if (Beam.isActiveAndEnabled && Physics.SphereCast(origin.transform.position, radius, origin.transform.forward, out RaycastHit hit, Beam.range, mask))
             {
                 //Debug.Log(hit.collider.name);
                 if (hit.collider.TryGetComponent<BaseClue>(out BaseClue clue))
