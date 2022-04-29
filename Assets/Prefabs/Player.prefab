@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4010570423786852981}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: PlayerCameraRoot
   m_TagString: CinemachineTarget
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2760653354558789324}
   - {fileID: 1839165933113053229}
+  - {fileID: 2760653354558789324}
   m_Father: {fileID: 8220656003159781779}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4905090035785514812}
   - component: {fileID: 4905090035785514803}
   - component: {fileID: 4905090035785514802}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4010570423786852981}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &2864765160506749418
 Light:
@@ -289,10 +289,8 @@ GameObject:
   - component: {fileID: 8745554764331559717}
   - component: {fileID: 1065925502163890849}
   - component: {fileID: 278418218}
-  - component: {fileID: 6258800373116737585}
-  - component: {fileID: 6152443372798186437}
-  - component: {fileID: 1065925502472788024}
-  m_Layer: 7
+  - component: {fileID: 2916626671548018463}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -538,37 +536,7 @@ MonoBehaviour:
   revealDurationBase: 3
   flashCooldownBase: 3
   flashCooldownBar: {fileID: 0}
---- !u!114 &6258800373116737585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745554764331559721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87c957ecb035e7b44b8fddf3b31c6bb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  onDeathActivated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1065925502472788024}
-        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: SetScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Main
-          m_BoolArgument: 0
-        m_CallState: 2
-  healthBar: {fileID: 0}
---- !u!82 &6152443372798186437
+--- !u!82 &2916626671548018463
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -664,18 +632,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1065925502472788024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745554764331559721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89a62b1722d8af0449c41f0104f2d38f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8624174351515778614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -685,7 +641,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5899987607920994554, guid: 896be8c7b0fdac74ca730ddd28af9ab7, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5899987607920994554, guid: 896be8c7b0fdac74ca730ddd28af9ab7, type: 3}
       propertyPath: m_LocalPosition.x

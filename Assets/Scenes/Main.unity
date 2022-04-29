@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 544619980}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3782,7 +3782,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7790123, y: 1}
+    m_SensorSize: {x: 1.7804878, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4342,17 +4342,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
---- !u!114 &1373521504 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2442811340130917566, guid: 449d88c21f43cf34ab2970cec0ef1cb7, type: 3}
-  m_PrefabInstance: {fileID: 1373521503}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1385706991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7433,7 +7422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entryContainer: {fileID: 776120436}
   playerInput: {fileID: 1362377805}
-  audioSource: {fileID: 1065925502472788024}
+  audioSource: {fileID: 1065925502472788030}
   openSound: {fileID: 8300000, guid: b44d89b22b383054d859077b7c1a71ab, type: 3}
   addEntrySound: {fileID: 8300000, guid: e64a3bad00f786c4d9b9bbc88745094b, type: 3}
   entryPrefab: {fileID: 931093022709990431, guid: 5c27a491e54d9bb4382f80f08b277666, type: 3}
@@ -8078,30 +8067,6 @@ PrefabInstance:
       propertyPath: flashCooldownBar
       value: 
       objectReference: {fileID: 46796127}
-    - target: {fileID: 278418218, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: revealDurationBase
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1065925502163890849, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: mask.m_Bits
-      value: 6208
-      objectReference: {fileID: 0}
-    - target: {fileID: 2864765160506749418, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: m_Intensity
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258800373116737585, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 1373521504}
-    - target: {fileID: 7377053825647862816, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7509245796409619658, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8220656003159781779, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8170,9 +8135,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8220656003159781779, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
   m_PrefabInstance: {fileID: 1065925502472788021}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1065925502472788024 stripped
+--- !u!82 &1065925502472788030 stripped
 AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6152443372798186437, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2916626671548018463, guid: 70ec0425e1ad19e45969a7fb7e6162bb, type: 3}
   m_PrefabInstance: {fileID: 1065925502472788021}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2195490588360836462
