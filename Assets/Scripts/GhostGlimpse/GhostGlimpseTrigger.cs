@@ -16,13 +16,11 @@ public class GhostGlimpseTrigger : MonoBehaviour
     [SerializeField]
     protected GameObject glimpseObject;
 
-    [SerializeField]
     protected bool oneUse = true;
     public bool used = true;
     public bool canTrigger = false;
 
-    [SerializeField]
-    protected float glimpseSpeed = 100f;
+    protected float glimpseSpeed;
 
     protected GameObject SpawnGlimpse()
     {

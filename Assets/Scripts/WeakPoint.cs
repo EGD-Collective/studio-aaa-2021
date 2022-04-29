@@ -8,6 +8,9 @@ public class WeakPoint : MonoBehaviour
     private float focusDownDurationBase;
     private float focusDownDuration;
     private EnemyAI enemyAI;
+
+    [SerializeField]
+    private ParticleSystem focusParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,10 @@ public class WeakPoint : MonoBehaviour
     public void Hit(float damageAmount)
     {
         focusDownDuration -= Time.fixedDeltaTime;
+        if (!focusParticle.isPlaying)
+        {
+            focusParticle.Play();
+        }
         if(focusDownDuration <= 0)
         {
             enemyAI.SetPlayerDamageTaken(damageAmount);

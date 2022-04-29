@@ -1727,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8463049243644030693, guid: 7d39cdef88bd7cf4da389266d2a8a27b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.25
+      value: -11.96
       objectReference: {fileID: 0}
     - target: {fileID: 8463049243644030693, guid: 7d39cdef88bd7cf4da389266d2a8a27b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1735,7 +1735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8463049243644030693, guid: 7d39cdef88bd7cf4da389266d2a8a27b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.11
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 8463049243644030693, guid: 7d39cdef88bd7cf4da389266d2a8a27b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2165,7 +2165,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6428572, y: 1}
+    m_SensorSize: {x: 1.7796875, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4046,14 +4046,6 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 278418217}
-    - target: {fileID: 8680527491241556048, guid: 8173446eef99ad84c981bd91367477f3, type: 3}
-      propertyPath: glimpseFrequencyBase
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8680527491241556048, guid: 8173446eef99ad84c981bd91367477f3, type: 3}
-      propertyPath: glimpseFrequencyVariation
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8173446eef99ad84c981bd91367477f3, type: 3}
 --- !u!1001 &5872084988319855209
