@@ -6,8 +6,14 @@ using UnityEngine.AI;
 public class GhostGlimpse : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
-    private SkinnedMeshRenderer[] skinnedMesh;
     private bool reachedEnd = false;
+
+    [SerializeField]
+    private AudioClip[] spawnClips;
+    private AudioSource spawnSource;
+
+    [SerializeField]
+    private GameObject demonModel;
 
     [SerializeField]
     private ParticleSystem smokeTrail;
@@ -15,7 +21,8 @@ public class GhostGlimpse : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        skinnedMesh = GetComponentsInChildren<SkinnedMeshRenderer>();
+        spawnSource = GetComponent<AudioSource>();
+        spawnSource.clip = spawnClips[Random.Range(0, spawnClips.Length)];
     }
 
     // Update is called once per frame
@@ -23,15 +30,10 @@ public class GhostGlimpse : MonoBehaviour
     {
         if (navMeshAgent.remainingDistance < 1.1f && !reachedEnd)
         {
-            //Make invisible
-            for (int i = 0; i < skinnedMesh.Length; i++)
-            {
-                skinnedMesh[i].enabled = false;
-            }
-            reachedEnd = true;
+            demonModel.SetActive(false);
         }
         //Destory object when particles are done
-        if (smokeTrail.particleCount < 1 && reachedEnd)
+        if (smokeTrail.particleCount < 1 && !spawnSource.isPlaying && reachedEnd)
         {
             Destroy(gameObject);
         }
