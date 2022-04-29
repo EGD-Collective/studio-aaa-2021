@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8437714674130923113}
   - component: {fileID: 8437714674130923124}
   - component: {fileID: 4600113589444906704}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Family Picture (clue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect_48_Ring
       objectReference: {fileID: 0}
+    - target: {fileID: 6586500353564202547, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6586500353564202556, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -150,6 +154,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6586500353564202556, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586500353564202557, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -234,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 82cd205f25b873842aa4de730d102036, type: 3}
       propertyPath: m_Name
       value: family-picture-frame
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 82cd205f25b873842aa4de730d102036, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82cd205f25b873842aa4de730d102036, type: 3}

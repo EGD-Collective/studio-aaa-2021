@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 488632040245035734}
   - component: {fileID: 488632040245035723}
   - component: {fileID: 7805878488638290237}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Jigsaw Puzzle (Clue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2417893921086669364}
   - component: {fileID: 7283491870228108451}
   - component: {fileID: 6959975156925010307}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect_48_Ring
       objectReference: {fileID: 0}
+    - target: {fileID: 6586500353564202547, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6586500353564202556, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -233,6 +237,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6586500353564202556, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586500353564202557, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

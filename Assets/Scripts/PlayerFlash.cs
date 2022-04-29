@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +20,12 @@ public class PlayerFlash : MonoBehaviour
     [SerializeField]
     private float stunDuration;
     [SerializeField]
+    private float revealDurationBase;
     private float revealDuration;
     [SerializeField]
     private float flashCooldownBase;
     private float flashCooldown;
+    private float peakIntensity;
 
 
 
@@ -38,6 +41,7 @@ public class PlayerFlash : MonoBehaviour
 
         //Setting timers
         flashCooldown = flashCooldownBase;
+        peakIntensity = flashPointLight.intensity;
     }
 
     private void Update()
@@ -50,6 +54,13 @@ public class PlayerFlash : MonoBehaviour
         {
             flashCooldownBar.value = 1f - Mathf.Max(0f, flashCooldown / flashCooldownBase);
         }
+        if (flashPointLight.isActiveAndEnabled)
+        {
+            flashPointLight.intensity = peakIntensity * Mathf.Max(0, 1 - revealDuration / revealDurationBase);
+            revealDuration += Time.deltaTime;
+            if (revealDuration - revealDurationBase >= 0.1f)
+                flashPointLight.gameObject.SetActive(false);
+        }
     }
 
     public void OnFlash()
@@ -57,11 +68,13 @@ public class PlayerFlash : MonoBehaviour
         if (flashCooldown <= 0)
         {
             //Flash Animation
-            if (flashAnimator)
-            {
-                flashAnimator.SetTrigger("ToFlash");
-            }
+            //if (flashAnimator)
+            //{
+            //    flashAnimator.SetTrigger("ToFlash");
+            //}
 
+            flashPointLight.gameObject.SetActive(true);
+            revealDuration = 0;
             //Checking for enemy
             RaycastHit[] flashHit = Physics.SphereCastAll(transform.position, flashRange, Vector3.forward, flashRange);
             for (int i = 0; i < flashHit.Length; i++)
@@ -76,7 +89,9 @@ public class PlayerFlash : MonoBehaviour
                         enemyAI.Stun(stunDuration);
                     }
                     //Checking for hitting base clue
-                    if (flashHit[i].transform.TryGetComponent<FlashIndicator>(out FlashIndicator flashIndicator))
+                    if (flashHit[i].transform.TryGetComponent(out FlashIndicator flashIndicator)
+                        && flashHit[i].transform.TryGetComponent(out BaseClue clue) 
+                        && !clue.Activated)
                     {
                         flashIndicator.ActivateIndicator(revealDuration);
                     }

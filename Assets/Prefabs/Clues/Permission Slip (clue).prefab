@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5822449167931729030}
   - component: {fileID: 3024760891746433541}
   - component: {fileID: 7496574636061459898}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7207014210468855090}
   - component: {fileID: 1008016167432009834}
   - component: {fileID: 3639293142912099601}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Permission Slip (clue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7207014210468855084}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.054, y: 3.53, z: 0.31316}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -205,6 +205,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect_48_Ring
       objectReference: {fileID: 0}
+    - target: {fileID: 6586500353564202547, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6586500353564202556, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -247,6 +251,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6586500353564202556, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586500353564202557, guid: 5ef0be04634354144a58203c6db7bfce, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
