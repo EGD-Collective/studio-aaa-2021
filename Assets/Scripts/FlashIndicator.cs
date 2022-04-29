@@ -8,7 +8,7 @@ public class FlashIndicator : MonoBehaviour
     private ParticleSystem indicatorParticle;
     public void ActivateIndicator(float duration)
     {
-        indicatorParticle.Stop();
+        indicatorParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         var main = indicatorParticle.main;
         main.duration = duration;
         indicatorParticle.Play();
