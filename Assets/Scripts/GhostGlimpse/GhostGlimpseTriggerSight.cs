@@ -36,13 +36,13 @@ public class GhostGlimpseTriggerSight : GhostGlimpseTrigger
     private void FixedUpdate()
     {
         //Checking obstructions to line of sight to player
-        triggerToPlayer = playerTransform.position - triggerPoint.position;
+        triggerToPlayer = playerTransform.position + Vector3.up - triggerPoint.position;
         obstructedTrigger = Physics.Raycast(transform.position, triggerToPlayer, triggerToPlayer.magnitude, levelLayer);
 
-        spawnToPlayer = playerTransform.position - spawnPoint.position;
+        spawnToPlayer = playerTransform.position + Vector3.up - spawnPoint.position;
         obstructedSpawn = Physics.Raycast(transform.position, spawnToPlayer, spawnToPlayer.magnitude, levelLayer);
 
-        endToPlayer = playerTransform.position - endPoint.position;
+        endToPlayer = playerTransform.position + Vector3.up - endPoint.position;
         obstructedEnd = Physics.Raycast(transform.position, endToPlayer, endToPlayer.magnitude, levelLayer);
     }
 
@@ -50,7 +50,7 @@ public class GhostGlimpseTriggerSight : GhostGlimpseTrigger
     void Update()
     {
         //Checking for point in camera of player
-        Vector3 triggerToCam= playerView.WorldToViewportPoint(triggerPoint.position);
+        Vector3 triggerToCam = playerView.WorldToViewportPoint(triggerPoint.position);
         Vector3 spawnToCam = playerView.WorldToViewportPoint(spawnPoint.position);
         Vector3 endToCam = playerView.WorldToViewportPoint(endPoint.position);
         canTrigger = InSight(triggerToCam, obstructedTrigger) && !InSight(spawnToCam, obstructedSpawn) && !InSight(endToCam, obstructedEnd);
