@@ -42,8 +42,10 @@ public class Notebook : MonoBehaviour
 
     public void OnOpenNotebook()
     {
-        gameObject.SetActive(!gameObject.activeInHierarchy);
+        bool state = !gameObject.activeInHierarchy;
+        gameObject.SetActive(state);
         audioSource.PlayOneShot(openSound);
-        Time.timeScale = gameObject.activeInHierarchy ? 0 : 1;
+        Cursor.lockState = state ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Time.timeScale = state ? 0 : 1;
     }
 }
