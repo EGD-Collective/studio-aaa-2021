@@ -783,6 +783,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnClips:
   - {fileID: 8300000, guid: 8712cc0cbc581fd4cbe9da9103b9262f, type: 3}
+  - {fileID: 8300000, guid: 6291a57ef2b58cb44bd9322192bb1906, type: 3}
+  - {fileID: 8300000, guid: 149b2baac986868448f311d61abfdde6, type: 3}
   demonModel: {fileID: 5171502853766227813}
   smokeTrail: {fileID: 1626373950595567354}
 --- !u!1 &1478238550340912287
