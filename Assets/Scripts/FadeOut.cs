@@ -6,22 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class FadeOut : MonoBehaviour
 {
-    [SerializeField]
-    private float fadeOutTimeBase;
-    private float fadeOutTime;
-    private Image image;
+    private Animation fadeOutAnimation;
     private void Start()
     {
-        image = GetComponent<Image>();
-        fadeOutTime = fadeOutTimeBase;
+        fadeOutAnimation = GetComponent<Animation>();
+        fadeOutAnimation.Play();
     }
     private void Update()
     {
-        fadeOutTime -= Time.deltaTime;
-        Color holder = image.color;
-        holder.a = fadeOutTimeBase - fadeOutTime / fadeOutTimeBase;
-        image.color = holder;
-        if (fadeOutTime < 0f)
+        if (!fadeOutAnimation.isPlaying)
         {
             SceneManager.LoadScene("MainMenu");
         }
