@@ -81,6 +81,7 @@ public class EnemyAI : MonoBehaviour
     private float attackSize = 1f;
     private bool hitPlayer = false;
 
+    private bool hitOnce;
     //Damaging variables
     private float playerDamage;
 
@@ -377,6 +378,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 break;
             case BasicEnemyAIStates.ATTACK:
+
                 //Statemachine for attack cycle
                 switch (currentAttackState)
                 {
@@ -425,6 +427,7 @@ public class EnemyAI : MonoBehaviour
                             {
                                 currentAttackState = BasicEnemyAttackStates.ATTACK;
                                 attackDuration = attackCycles[currentAttackCycle].attackDurationBase;
+                                hitOnce = false;
                             }
                         }
                         break;
@@ -437,8 +440,9 @@ public class EnemyAI : MonoBehaviour
                         }
 
                         //Hitting the player
-                        if (playerInHitbox && !hitPlayer)
+                        if (playerInHitbox && !hitPlayer && !hitOnce)
                         {
+                            hitOnce = true;
                             hitPlayer = true;
                             player.GetComponent<Health>().LoseHealth(attackDamage);
                         }
