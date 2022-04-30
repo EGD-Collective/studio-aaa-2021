@@ -683,7 +683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rights of Exorcist
+  m_text: Buried in Ashes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3524ff455744eca44b43354c4d10cf23, type: 2}
   m_sharedMaterial: {fileID: 3643769821992068073, guid: 3524ff455744eca44b43354c4d10cf23, type: 2}
