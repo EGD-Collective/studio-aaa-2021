@@ -536,7 +536,7 @@ MonoBehaviour:
   flashRange: 7
   stunDuration: 5
   revealDurationBase: 3
-  flashCooldownBase: 3
+  flashCooldownBase: 15
   flashCooldownBar: {fileID: 0}
 --- !u!82 &2916626671548018463
 AudioSource:
