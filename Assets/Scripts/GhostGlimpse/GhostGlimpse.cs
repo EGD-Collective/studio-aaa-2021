@@ -23,6 +23,7 @@ public class GhostGlimpse : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         spawnSource = GetComponent<AudioSource>();
         spawnSource.clip = spawnClips[Random.Range(0, spawnClips.Length)];
+        spawnSource.Play();
     }
 
     // Update is called once per frame
