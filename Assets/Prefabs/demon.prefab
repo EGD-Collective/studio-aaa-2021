@@ -2539,11 +2539,12 @@ MonoBehaviour:
   weakPointSize: 0.002
   focusDownDurationBase: 1.5
   spd: 1.5
-  attackDamage: 5
+  attackDamage: 15
   deathParticles:
   - {fileID: 900599727890665054}
   - {fileID: 5906485200750553175}
   - {fileID: 4785678897130241465}
+  fadeOut: {fileID: 0}
 --- !u!195 &2013160755
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -93,7 +93,7 @@ public class PlayerFlash : MonoBehaviour
                         && flashHit[i].transform.TryGetComponent(out BaseClue clue) 
                         && !clue.Activated)
                     {
-                        flashIndicator.ActivateIndicator(revealDuration);
+                        flashIndicator.ActivateIndicator(revealDurationBase);
                     }
                 }
             }
