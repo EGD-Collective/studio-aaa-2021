@@ -31,6 +31,7 @@ public class GhostGlimpse : MonoBehaviour
         if (navMeshAgent.remainingDistance < 1.1f && !reachedEnd)
         {
             demonModel.SetActive(false);
+            reachedEnd = true;
         }
         //Destory object when particles are done
         if (smokeTrail.particleCount < 1 && !spawnSource.isPlaying && reachedEnd)

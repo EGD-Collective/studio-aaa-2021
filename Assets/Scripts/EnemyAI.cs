@@ -133,7 +133,8 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField]
     private ParticleSystem[] deathParticles;
-
+    [SerializeField]
+    private GameObject fadeOut;
     // Start is called before the first frame update
     void Start()
     {
@@ -667,6 +668,11 @@ public class EnemyAI : MonoBehaviour
     //Dying
     public void Die()
     {
+        if(fadeOut)
+        {
+            fadeOut.SetActive(true);
+        }
+
         Debug.Log(gameObject.name + " is dead");
         ExitAnyState();
         EnterDead();
